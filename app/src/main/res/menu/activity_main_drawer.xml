@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_beranda"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="Beranda" />
+        <item
+            android:id="@+id/nav_tanah"
+            android:icon="@drawable/ic_action_soil"
+            android:title="Kelembaban Tanah" />
+        <item
+            android:id="@+id/nav_udara"
+            android:icon="@drawable/ic_action_humidity"
+            android:title="Kelembaban Udara" />
+        <item
+            android:id="@+id/nav_suhu"
+            android:icon="@drawable/ic_action_temp"
+            android:title="Suhu" />
+        <item
+            android:id="@+id/nav_manual"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="Penyiraman Manual"
+            />
+    </group>
+
+
+</menu>
