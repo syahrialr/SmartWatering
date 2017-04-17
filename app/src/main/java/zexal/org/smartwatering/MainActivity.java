@@ -1,8 +1,11 @@
 package zexal.org.smartwatering;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +15,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import zexal.org.smartwatering.Fragment.Suhu;
+import zexal.org.smartwatering.Fragment.Tanah;
+import zexal.org.smartwatering.Fragment.Udara;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -69,17 +76,25 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        Fragment fragment = null;
         int id = item.getItemId();
 
         if (id == R.id.nav_beranda) {
-            // Handle the camera action
+
         } else if (id == R.id.nav_tanah) {
-
+            fragment = new Tanah();
         } else if (id == R.id.nav_udara) {
-
+            fragment = new Udara();
         } else if (id == R.id.nav_suhu) {
+            fragment = new Suhu();
 
         }
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
+                android.R.anim.fade_out);
+        fragmentTransaction.replace(R.id.frame, fragment);
+        fragmentTransaction.commitAllowingStateLoss();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
