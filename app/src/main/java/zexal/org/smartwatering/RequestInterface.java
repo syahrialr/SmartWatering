@@ -3,6 +3,7 @@ package zexal.org.smartwatering;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.http.GET;
 
 /**
@@ -13,4 +14,5 @@ public interface RequestInterface {
     @GET("/data")
     Call<List<Data>> getJSON();
     //kalem
+
 }

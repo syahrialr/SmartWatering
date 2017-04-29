@@ -10,35 +10,26 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/real_condition"
-            android:text="30"
-            android:textSize="72sp"
-            android:gravity="center"
-            android:layout_gravity="center"
-
-            />
-        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/real_desc"
-            android:text="keterangan disini"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textSize="24sp"
+            android:text="30\u2103"
+            android:textSize="72sp"
+
             />
 
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/card_recycler_view"
-        android:scrollbars="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
 
 </LinearLayout>
