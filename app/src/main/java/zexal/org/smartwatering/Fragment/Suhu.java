@@ -35,9 +35,8 @@ public class Suhu extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<Data> data;
     private DataAdapter adapter;
-    View mView;
-    private TextView mTextCondition;
     String url = "http://krstudio.web.id";
+    final boolean keepRunning1 = true;
 
     @BindView(R.id.real_condition)
     TextView suhuReal;
@@ -53,7 +52,6 @@ public class Suhu extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_suhu, container, false);
         ButterKnife.bind(this,v);
-        mTextCondition = (TextView) v.findViewById(R.id.real_condition);
 
         Thread t = new Thread(){
             @Override
@@ -63,12 +61,16 @@ public class Suhu extends Fragment {
                     try {
                         Thread.sleep(1000);
 
+                        if(getActivity() == null)
+                            return;
+
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 loadJSON();
                             }
                         });
+
 
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -82,6 +84,22 @@ public class Suhu extends Fragment {
 
         initViews(v);
         return v;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
     }
 
     private void updateTextView(String suhu) {
@@ -120,5 +138,23 @@ public class Suhu extends Fragment {
 
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
 }
