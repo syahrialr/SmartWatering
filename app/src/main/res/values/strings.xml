@@ -9,4 +9,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Profile">Profile</string>
+    <string-array name="nav_item_activity_titles">
+        <item>Beranda</item>
+        <item>Kelembaban Tanah</item>
+        <item>Kelembaban Udara</item>
+        <item>Suhu</item>
+    </string-array>
 </resources>

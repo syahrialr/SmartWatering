@@ -17,4 +17,9 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="Splash" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:background">@drawable/splashbackground</item>
+    </style>
 </resources>

@@ -1,0 +1,109 @@
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="zexal.org.smartwatering.Fragment.Beranda">
+
+   <LinearLayout
+       android:id="@+id/l1"
+       android:gravity="center"
+       android:layout_width="match_parent"
+       android:layout_height="120dp"
+       android:orientation="vertical"
+       android:background="@color/merah">
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/beranda_tanah"
+           android:gravity="center"
+           android:text="Kelembaban Tanah"
+           android:textSize="24sp"
+           android:textColor="@color/putih"
+           />
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:gravity="center"
+           android:text="20%"
+           android:textColor="@color/putih"
+           android:textSize="42sp"
+           android:id="@+id/beranda_vtanah"
+           />
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/beranda_ktanah"
+           android:gravity="center"
+           android:text="Tanah Kering"
+           android:textSize="24sp"
+           android:textColor="@color/putih"
+           />
+
+   </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@color/merah">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/beranda_suhu"
+            android:gravity="center"
+            android:text="SUHU"
+            android:textSize="24sp"
+            android:textColor="@color/putih"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="36°"
+            android:textColor="@color/putih"
+            android:textSize="42sp"
+            android:id="@+id/beranda_vsuhu"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="120dp"
+        android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/beranda_udara"
+        android:gravity="center"
+        android:text="Kelembaban Udara"
+        android:textSize="24sp"
+        android:textColor="@color/putih"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="70%"
+        android:textColor="@color/putih"
+        android:textSize="42sp"
+        android:id="@+id/beranda_vudara"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/beranda_kudara"
+        android:gravity="center"
+        android:text="Tanah Kering"
+        android:textSize="24sp"
+        android:textColor="@color/putih"
+        />
+
+</LinearLayout>
+
+
+</LinearLayout>

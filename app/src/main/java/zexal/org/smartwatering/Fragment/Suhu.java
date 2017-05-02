@@ -109,8 +109,6 @@ public class Suhu extends Fragment {
                 updateTextView(response.body().get(0).getTemp());
                 adapter = new DataAdapter(response.body());
                 recyclerView.setAdapter(adapter);
-
-
                 adapter.notifyDataSetChanged();
             }
 

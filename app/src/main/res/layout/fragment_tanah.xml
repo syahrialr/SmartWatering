@@ -4,6 +4,5 @@
     android:layout_height="match_parent"
     tools:context="zexal.org.smartwatering.Fragment.Tanah">
 
-    <include layout="@layout/resource_layout"></include>
 
 </FrameLayout>
