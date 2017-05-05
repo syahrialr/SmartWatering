@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -40,6 +41,8 @@ public class Suhu extends Fragment {
 
     @BindView(R.id.real_condition)
     TextView suhuReal;
+    @BindView(R.id.lsuhu)
+    LinearLayout linear;
 
     public Suhu() {
         // Required empty public constructor
@@ -103,7 +106,14 @@ public class Suhu extends Fragment {
     }
 
     private void updateTextView(String suhu) {
-        suhuReal.setText(suhu+" \u2103");
+        if(Float.parseFloat(suhu)>=31.00) {
+            suhuReal.setText(suhu + " \u2103");
+            linear.setBackgroundResource(R.color.merah);
+        }else
+        {
+            suhuReal.setText(suhu + " \u2103");
+            linear.setBackgroundResource(R.color.colorPrimaryDark);
+        }
     }
 
     private void initViews(View v) {

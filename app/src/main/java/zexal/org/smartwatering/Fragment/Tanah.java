@@ -1,13 +1,16 @@
 package zexal.org.smartwatering.Fragment;
 
 
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -26,6 +29,8 @@ import zexal.org.smartwatering.R;
 import zexal.org.smartwatering.RequestInterface;
 import zexal.org.smartwatering.SoilAdapter;
 
+import static android.content.ContentValues.TAG;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,8 +42,11 @@ public class Tanah extends Fragment {
     private SoilAdapter adapter;
     String url = "http://krstudio.web.id";
 
-    @BindView(R.id.real_condition)
-    TextView suhuReal;
+    @BindView(R.id.real_condition) TextView suhuReal;
+    @BindView(R.id.k_kelembaban) TextView kondisi;
+    @BindView(R.id.ltanah) LinearLayout linear;
+
+
 
     public Tanah() {
         // Required empty public constructor
@@ -51,6 +59,7 @@ public class Tanah extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tanah, container, false);
         ButterKnife.bind(this,v);
+
 
         Thread t = new Thread(){
             @Override
@@ -85,8 +94,34 @@ public class Tanah extends Fragment {
         return v;
     }
 
-    private void updateTextView(String tanah) {
-        suhuReal.setText(tanah+" \u0025");
+    private void updateTextView(String tanah,String kondisii) {
+        int temp;
+        float hasil;
+        float patokan=700;
+        temp=Integer.parseInt(tanah);
+        hasil=temp/patokan*100;
+        int hasil2= (int) hasil;
+        if(Integer.parseInt(tanah)>=700)
+        {
+            suhuReal.setText(hasil2+" \u0025");
+            kondisi.setText(kondisii);
+            linear.setBackgroundResource(R.color.colorPrimaryDark);
+        }else if(Integer.parseInt(tanah)>=300 && Integer.parseInt(tanah)<=700)
+        {
+            suhuReal.setText(hasil2+" \u0025");
+            kondisi.setText(kondisii);
+            linear.setBackgroundResource(R.color.hijau);
+
+
+        }else if(Integer.parseInt(tanah)<=300)
+        {
+            suhuReal.setText(hasil2+" \u0025");
+            kondisi.setText(kondisii);
+            linear.setBackgroundResource(R.color.merah);
+
+        }
+
+
     }
 
     private void initViews(View v) {
@@ -107,7 +142,7 @@ public class Tanah extends Fragment {
         call.enqueue(new Callback<List<Data>>() {
             @Override
             public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
-                updateTextView(response.body().get(0).getSensorsoil());
+                updateTextView(response.body().get(0).getSensorsoil(),response.body().get(0).getKondisisoil());
                 adapter = new SoilAdapter(response.body());
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class Udara extends Fragment {
 
     @BindView(R.id.real_condition)
     TextView suhuReal;
+    @BindView(R.id.ludara) LinearLayout linear;
 
 
     public Udara() {
@@ -86,8 +88,17 @@ public class Udara extends Fragment {
         return v;
     }
 
-    private void updateTextView(String tanah) {
-        suhuReal.setText(tanah+" \u0025");
+    private void updateTextView(String udara) {
+        if(Float.parseFloat(udara)>=50.00) {
+            suhuReal.setText(udara + " \u0025");
+            linear.setBackgroundResource(R.color.colorPrimaryDark);
+        }
+            else {
+                suhuReal.setText(udara + " \u0025");
+                linear.setBackgroundResource(R.color.merah);
+            }
+
+
     }
 
     private void initViews(View v) {

@@ -7,7 +7,7 @@
     tools:context="zexal.org.smartwatering.Fragment.Beranda">
 
    <LinearLayout
-       android:id="@+id/l1"
+       android:id="@+id/lb1"
        android:gravity="center"
        android:layout_width="match_parent"
        android:layout_height="120dp"
@@ -43,6 +43,7 @@
 
    </LinearLayout>
     <LinearLayout
+        android:id="@+id/lb2"
         android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="120dp"
@@ -69,6 +70,7 @@
             />
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/lb3"
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"

@@ -30,7 +30,6 @@ import zexal.org.smartwatering.RequestInterface;
  * A simple {@link Fragment} subclass.
  */
 public class Beranda extends Fragment {
-LinearLayout li1;
 
     private RecyclerView recyclerView;
     private ArrayList<Data> data;
@@ -38,14 +37,14 @@ LinearLayout li1;
     String url = "http://krstudio.web.id";
 
 
-    @BindView(R.id.beranda_vtanah)
-    TextView soilReal;
+    @BindView(R.id.beranda_vtanah)TextView soilReal;
+    @BindView(R.id.beranda_ktanah) TextView kondisi;
+    @BindView(R.id.beranda_vsuhu) TextView suhuReal;
+    @BindView(R.id.beranda_vudara) TextView humiReal;
+    @BindView(R.id.lb1) LinearLayout l1;
+    @BindView(R.id.lb2) LinearLayout l2;
+    @BindView(R.id.lb3) LinearLayout l3;
 
-    @BindView(R.id.beranda_vsuhu)
-    TextView suhuReal;
-
-    @BindView(R.id.beranda_vudara)
-    TextView humiReal;
 
     public Beranda() {
         // Required empty public constructor
@@ -56,8 +55,6 @@ LinearLayout li1;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.fragment_beranda, container, false);
-        li1=(LinearLayout) v.findViewById(R.id.l1);
-        li1.setBackgroundResource(R.color.hijau);
         // Inflate the layout for this fragment
 
         Thread t = new Thread(){
@@ -94,10 +91,53 @@ LinearLayout li1;
     }
 
     private void updateTextView(String suhu) {
-        suhuReal.setText(suhu+" \u2103");
+        if(Float.parseFloat(suhu)>=31.00) {
+            suhuReal.setText(suhu + "°");
+            l2.setBackgroundResource(R.color.merah);
+        }else
+        {
+            suhuReal.setText(suhu + "°");
+            l2.setBackgroundResource(R.color.colorPrimaryDark);
+        }
     }
-    private void updateTextHumi(String humi){ humiReal.setText(humi+" \u0025");}
-    private void updateTextSoil(String soil){ soilReal.setText(soil+" \u0025");}
+    private void updateTextHumi(String humi){
+        if(Float.parseFloat(humi)>=50.00) {
+            humiReal.setText(humi + "°");
+            l3.setBackgroundResource(R.color.colorPrimaryDark);
+        }
+        else {
+            humiReal.setText(humi + " \u0025");
+            l3.setBackgroundResource(R.color.merah);
+        }
+    }
+    private void updateTextSoil(String tanah,String kondisii){
+        int temp;
+        float hasil;
+        float patokan=700;
+        temp=Integer.parseInt(tanah);
+        hasil=temp/patokan*100;
+        int hasil2= (int) hasil;
+        if(Integer.parseInt(tanah)>=700)
+        {
+            soilReal.setText(hasil2+" \u0025");
+            kondisi.setText(kondisii);
+            l1.setBackgroundResource(R.color.colorPrimaryDark);
+        }else if(Integer.parseInt(tanah)>=300 && Integer.parseInt(tanah)<=700)
+        {
+            soilReal.setText(hasil2+" \u0025");
+            kondisi.setText(kondisii);
+            l1.setBackgroundResource(R.color.hijau);
+
+
+        }else if(Integer.parseInt(tanah)<=300)
+        {
+            soilReal.setText(hasil2+" \u0025");
+            kondisi.setText(kondisii);
+            l1.setBackgroundResource(R.color.merah);
+
+        }
+
+    }
 
     private void loadJSON() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -111,7 +151,7 @@ LinearLayout li1;
             public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
                 updateTextView(response.body().get(0).getTemp());
                 updateTextHumi(response.body().get(0).getHumi());
-                updateTextSoil(response.body().get(0).getSensorsoil());
+                updateTextSoil(response.body().get(0).getSensorsoil(),response.body().get(0).getKondisisoil());
             }
 
             @Override
