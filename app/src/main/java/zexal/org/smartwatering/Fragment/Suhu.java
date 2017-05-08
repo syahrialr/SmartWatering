@@ -17,6 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import pl.pawelkleczkowski.customgauge.CustomGauge;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,7 +38,9 @@ public class Suhu extends Fragment {
     private ArrayList<Data> data;
     private DataAdapter adapter;
     String url = "http://krstudio.web.id";
-    final boolean keepRunning1 = true;
+
+    @BindView(R.id.gauge1)
+    CustomGauge mGauge;
 
     @BindView(R.id.real_condition)
     TextView suhuReal;
@@ -71,6 +74,7 @@ public class Suhu extends Fragment {
                             @Override
                             public void run() {
                                 loadJSON();
+
                             }
                         });
 
@@ -114,6 +118,12 @@ public class Suhu extends Fragment {
             suhuReal.setText(suhu + " \u2103");
             linear.setBackgroundResource(R.color.colorPrimaryDark);
         }
+
+    }
+
+    private void setmGauge(String su){
+        int x = (int) Float.parseFloat(su);
+        mGauge.setValue(x);
     }
 
     private void initViews(View v) {
@@ -135,6 +145,7 @@ public class Suhu extends Fragment {
             @Override
             public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
                 updateTextView(response.body().get(0).getTemp());
+                setmGauge(response.body().get(0).getTemp());
                 adapter = new DataAdapter(response.body());
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();

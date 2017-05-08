@@ -11,6 +11,7 @@
        android:gravity="center"
        android:layout_width="match_parent"
        android:layout_height="120dp"
+       android:layout_marginTop="8dp"
        android:orientation="vertical"
        android:background="@color/merah">
        <TextView
@@ -26,7 +27,7 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:gravity="center"
-           android:text="20%"
+           android:text="@string/nodata"
            android:textColor="@color/putih"
            android:textSize="42sp"
            android:id="@+id/beranda_vtanah"
@@ -36,7 +37,7 @@
            android:layout_height="wrap_content"
            android:id="@+id/beranda_ktanah"
            android:gravity="center"
-           android:text="Tanah Kering"
+           android:text="@string/nodata"
            android:textSize="24sp"
            android:textColor="@color/putih"
            />
@@ -50,20 +51,21 @@
         android:gravity="center"
         android:orientation="vertical"
         android:background="@color/merah">
+
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/beranda_suhu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="SUHU"
-            android:textSize="24sp"
+            android:text="Suhu"
             android:textColor="@color/putih"
-            />
+            android:textSize="24sp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="36°"
+            android:text="@string/nodata"
             android:textColor="@color/putih"
             android:textSize="42sp"
             android:id="@+id/beranda_vsuhu"
@@ -90,7 +92,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="70%"
+        android:text="@string/nodata"
         android:textColor="@color/putih"
         android:textSize="42sp"
         android:id="@+id/beranda_vudara"
@@ -100,7 +102,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/beranda_kudara"
         android:gravity="center"
-        android:text="Tanah Kering"
+        android:text="@string/nodata"
         android:textSize="24sp"
         android:textColor="@color/putih"
         />
