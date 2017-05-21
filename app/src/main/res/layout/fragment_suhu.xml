@@ -1,49 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:gauge="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="210dp"
         android:gravity="center"
         android:id="@+id/lsuhu"
         android:background="@color/merah"
         android:orientation="vertical">
 
-        <pl.pawelkleczkowski.customgauge.CustomGauge
-            android:id="@+id/gauge1"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_centerHorizontal="true"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="10dp"
-            app:gaugeEndValue="800"
-            app:gaugePointEndColor="@color/md_blue_800"
-            app:gaugePointStartColor="@color/md_blue_300"
-            app:gaugeStartAngle="135"
-            app:gaugeStartValue="200"
-            app:gaugeStrokeCap="BUTT"
-            app:gaugeStrokeColor="@color/md_grey_400"
-            app:gaugeStrokeWidth="10dp"
-            app:gaugeSweepAngle="270" />
-
-
-        <TextView
-            android:id="@+id/real_condition"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/putih"
-            android:gravity="center"
-            android:text="--\u2103"
-            android:textSize="72sp"
-            />
+        <com.github.lzyzsd.circleprogress.ArcProgress
+            android:id="@+id/arc_progress3"
+            custom:arc_unfinished_color="#80000000"
+            custom:arc_finished_color="@color/putih"
+            android:layout_centerInParent="true"
+            custom:arc_max="50"
+            custom:arc_suffix_text="°C"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            custom:arc_bottom_text="SUHU"
+            custom:arc_text_color="@color/putih"
+            custom:arc_bottom_text_size="20sp"/>
 
     </LinearLayout>
 

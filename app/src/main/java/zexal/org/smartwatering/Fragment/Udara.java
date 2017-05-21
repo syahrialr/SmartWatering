@@ -3,13 +3,19 @@ package zexal.org.smartwatering.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import com.github.lzyzsd.circleprogress.ArcProgress;
+
+
+import org.eazegraph.lib.charts.ValueLineChart;
+import org.eazegraph.lib.models.ValueLinePoint;
+import org.eazegraph.lib.models.ValueLineSeries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +28,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import zexal.org.smartwatering.Data;
-import zexal.org.smartwatering.HumiAdapter;
+import zexal.org.smartwatering.Adapter.HumiAdapter;
+import zexal.org.smartwatering.DataGrahp;
 import zexal.org.smartwatering.R;
 import zexal.org.smartwatering.RequestInterface;
 
@@ -33,14 +40,15 @@ import zexal.org.smartwatering.RequestInterface;
 public class Udara extends Fragment {
 
     private RecyclerView recyclerView;
-    private ArrayList<Data> data;
+    private List<Data> data = new ArrayList<>();
+    ArrayList<DataGrahp> datagraph = new ArrayList<>();
     private HumiAdapter adapter;
     String url = "http://krstudio.web.id";
-
-    @BindView(R.id.real_condition)
-    TextView suhuReal;
     @BindView(R.id.ludara) LinearLayout linear;
+    @BindView(R.id.arc_progress2)
+    ArcProgress progress;
 
+    ValueLineChart mCubicValueLineChart;
 
     public Udara() {
         // Required empty public constructor
@@ -52,6 +60,9 @@ public class Udara extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_udara, container, false);
+
+        mCubicValueLineChart = (ValueLineChart) v.findViewById(R.id.cubiclinechart);
+
 
         ButterKnife.bind(this,v);
 
@@ -82,31 +93,25 @@ public class Udara extends Fragment {
         };
 
         t.start();
-
-        initViews(v);
-
+        loadgraphJSON();
         return v;
     }
 
+
+
+
+
     private void updateTextView(String udara) {
-        if(Float.parseFloat(udara)>=50.00) {
-            suhuReal.setText(udara + " \u0025");
+        int x = (int) Float.parseFloat(udara);
+        if(x>=50) {
+            progress.setProgress(x);
             linear.setBackgroundResource(R.color.colorPrimaryDark);
         }
             else {
-                suhuReal.setText(udara + " \u0025");
+                progress.setProgress(x);
                 linear.setBackgroundResource(R.color.merah);
             }
 
-
-    }
-
-    private void initViews(View v) {
-        recyclerView = (RecyclerView) v.findViewById(R.id.card_recycler_view);
-        recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        loadJSON();
     }
 
     private void loadJSON() {
@@ -120,9 +125,7 @@ public class Udara extends Fragment {
             @Override
             public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
                 updateTextView(response.body().get(0).getHumi());
-                adapter = new HumiAdapter(response.body());
-                recyclerView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -132,5 +135,40 @@ public class Udara extends Fragment {
         });
 
     }
+    private void loadgraphJSON() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RequestInterface request = retrofit.create(RequestInterface.class);
+        Call<List<Data>> call = request.getJSON();
+        call.enqueue(new Callback<List<Data>>() {
+            @Override
+            public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
+                for (int i = 0; i < response.body().size(); i++) {
+                    String[] split = response.body().get(i).getTime().split(" ");
+                    datagraph.add(new DataGrahp(split[1],Float.parseFloat(response.body().get(i).getHumi())));
+                    Log.d("ewewewe", "loadDataGraph: "+datagraph.get(i).getLabel());
+                }
+
+                ValueLineSeries series = new ValueLineSeries();
+                series.setColor(0xFF56B7F1);
+
+                for (int i = 0; i < datagraph.size(); i++) {
+                    series.addPoint(new ValueLinePoint(datagraph.get(i).getLabel(), datagraph.get(i).getValue()));
+                }
+
+                mCubicValueLineChart.addSeries(series);
+                mCubicValueLineChart.startAnimation();
+            }
+
+            @Override
+            public void onFailure(Call<List<Data>> call, Throwable t) {
+
+            }
+        });
+
+    }
+
 
 }

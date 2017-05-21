@@ -1,20 +1,26 @@
 package zexal.org.smartwatering.Fragment;
 
 
-import android.nfc.Tag;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.lzyzsd.circleprogress.ArcProgress;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,12 +30,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import zexal.org.smartwatering.Data;
-import zexal.org.smartwatering.DataAdapter;
 import zexal.org.smartwatering.R;
 import zexal.org.smartwatering.RequestInterface;
-import zexal.org.smartwatering.SoilAdapter;
-
-import static android.content.ContentValues.TAG;
+import zexal.org.smartwatering.Adapter.SoilAdapter;
 
 
 /**
@@ -41,11 +44,16 @@ public class Tanah extends Fragment {
     private ArrayList<Data> data;
     private SoilAdapter adapter;
     String url = "http://krstudio.web.id";
+    private Timer timer;
 
-    @BindView(R.id.real_condition) TextView suhuReal;
-    @BindView(R.id.k_kelembaban) TextView kondisi;
+
     @BindView(R.id.ltanah) LinearLayout linear;
-
+    @BindView(R.id.arc_progress)
+    ArcProgress progress;
+    @BindView(R.id.ktanah) TextView kt;
+    @BindView(R.id.arc_progress2)
+    ArcProgress progress2;
+    @BindView(R.id.ktanah2) TextView kt2;
 
 
     public Tanah() {
@@ -98,29 +106,50 @@ public class Tanah extends Fragment {
         int temp;
         float hasil;
         float patokan=700;
-        temp=Integer.parseInt(tanah);
+        temp= (int) Float.parseFloat(tanah);
         hasil=temp/patokan*100;
         int hasil2= (int) hasil;
         if(Integer.parseInt(tanah)>=700)
         {
-            suhuReal.setText(hasil2+" \u0025");
-            kondisi.setText(kondisii);
+            progress.setProgress(100);
+            kt.setText(kondisii);
             linear.setBackgroundResource(R.color.colorPrimaryDark);
         }else if(Integer.parseInt(tanah)>=300 && Integer.parseInt(tanah)<=700)
         {
-            suhuReal.setText(hasil2+" \u0025");
-            kondisi.setText(kondisii);
+            progress.setProgress(hasil2);
+            kt.setText(kondisii);
             linear.setBackgroundResource(R.color.hijau);
-
-
         }else if(Integer.parseInt(tanah)<=300)
         {
-            suhuReal.setText(hasil2+" \u0025");
-            kondisi.setText(kondisii);
+            progress.setProgress(hasil2);
+            kt.setText(kondisii);
             linear.setBackgroundResource(R.color.merah);
-
         }
 
+
+
+    }
+    private void updateTextView2(String tanah,String kondisii)
+    {
+        int temp;
+        float hasil;
+        float patokan=700;
+        temp= (int) Float.parseFloat(tanah);
+        hasil=temp/patokan*100;
+        int hasil2= (int) hasil;
+        if(Integer.parseInt(tanah)>=700)
+        {
+            progress2.setProgress(100);
+            kt2.setText(kondisii);
+        }else if(Integer.parseInt(tanah)>=300 && Integer.parseInt(tanah)<=700)
+        {
+            progress2.setProgress(hasil2);
+            kt2.setText(kondisii);
+        }else if(Integer.parseInt(tanah)<=300)
+        {
+            progress2.setProgress(hasil2);
+            kt2.setText(kondisii);
+        }
 
     }
 
@@ -143,6 +172,8 @@ public class Tanah extends Fragment {
             @Override
             public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
                 updateTextView(response.body().get(0).getSensorsoil(),response.body().get(0).getKondisisoil());
+                updateTextView2(response.body().get(0).getSensorsoil2(),response.body().get(0).getKondisisoil2());
+
                 adapter = new SoilAdapter(response.body());
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();

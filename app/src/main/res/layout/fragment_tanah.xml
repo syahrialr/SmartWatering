@@ -1,36 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="210dp"
         android:gravity="center"
         android:id="@+id/ltanah"
         android:background="#7CB342"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/real_condition"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/putih"
-            android:gravity="center"
-            android:text="--%"
-            android:textSize="72sp"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Kelembaban Cukup"
-            android:gravity="center"
-            android:id="@+id/k_kelembaban"
-            android:textSize="24sp"
-            android:textColor="@color/putih"
-            />
+            <TextView
+                android:text="DEV 1"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:textColor="@color/putih"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        <com.github.lzyzsd.circleprogress.ArcProgress
+            android:id="@+id/arc_progress"
+            custom:arc_unfinished_color="#80000000"
+            custom:arc_finished_color="@color/putih"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            custom:arc_bottom_text="TANAH"
+            custom:arc_text_color="@color/putih"
 
+            custom:arc_bottom_text_size="20sp"/>
+        <TextView
+            android:id="@+id/ktanah"
+            android:text="@string/nodata"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="@color/putih"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            >
+            <TextView
+                android:text="DEV 2"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:textColor="@color/putih"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <com.github.lzyzsd.circleprogress.ArcProgress
+                android:id="@+id/arc_progress2"
+                custom:arc_unfinished_color="#80000000"
+                custom:arc_finished_color="@color/putih"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                custom:arc_bottom_text="TANAH"
+                custom:arc_text_color="@color/putih"
+
+                custom:arc_bottom_text_size="20sp"/>
+            <TextView
+                android:id="@+id/ktanah2"
+                android:text="@string/nodata"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:textColor="@color/putih"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

@@ -1,16 +1,20 @@
-<LinearLayout
-    android:orientation="vertical"
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="zexal.org.smartwatering.Fragment.Beranda">
+    tools:context="zexal.org.smartwatering.Fragment.Beranda"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-   <LinearLayout
+
+    <LinearLayout
        android:id="@+id/lb1"
        android:gravity="center"
        android:layout_width="match_parent"
-       android:layout_height="120dp"
+       android:layout_height="160dp"
        android:layout_marginTop="8dp"
        android:orientation="vertical"
        android:background="@color/merah">
@@ -42,12 +46,88 @@
            android:textColor="@color/putih"
            />
 
+
+
    </LinearLayout>
+
+    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+        android:id="@+id/expandableLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:ael_duration="500"
+        app:ael_interpolator="bounce"
+        app:ael_orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_tanah"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scrollbars="vertical" />
+
+        </RelativeLayout>
+
+    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/lb3"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/beranda_udara"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Kelembaban Udara"
+            android:textColor="@color/putih"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/beranda_vudara"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/nodata"
+            android:textColor="@color/putih"
+            android:textSize="42sp" />
+
+    </LinearLayout>
+
+    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+        android:id="@+id/expandableLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:ael_duration="500"
+        app:ael_interpolator="bounce"
+        app:ael_orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_udara"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scrollbars="vertical" />
+
+        </RelativeLayout>
+
+    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
     <LinearLayout
         android:id="@+id/lb2"
         android:layout_marginTop="8dp"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="160dp"
         android:gravity="center"
         android:orientation="vertical"
         android:background="@color/merah">
@@ -71,43 +151,29 @@
             android:id="@+id/beranda_vsuhu"
             />
     </LinearLayout>
-    <LinearLayout
-        android:id="@+id/lb3"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorPrimaryDark"
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_height="120dp"
-        android:orientation="vertical">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/beranda_udara"
-        android:gravity="center"
-        android:text="Kelembaban Udara"
-        android:textSize="24sp"
-        android:textColor="@color/putih"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/nodata"
-        android:textColor="@color/putih"
-        android:textSize="42sp"
-        android:id="@+id/beranda_vudara"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/beranda_kudara"
-        android:gravity="center"
-        android:text="@string/nodata"
-        android:textSize="24sp"
-        android:textColor="@color/putih"
-        />
 
-</LinearLayout>
+    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+        android:id="@+id/expandableLayout3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:ael_duration="500"
+        app:ael_interpolator="bounce"
+        app:ael_orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_suhu"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scrollbars="vertical" />
+
+        </RelativeLayout>
+
+    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
 
 </LinearLayout>
+</ScrollView>

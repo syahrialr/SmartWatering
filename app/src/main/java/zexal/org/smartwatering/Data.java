@@ -22,12 +22,21 @@ public class Data {
     @SerializedName("humi")
     @Expose
     private String humi;
+
     @SerializedName("kondisisoil")
     @Expose
     private String kondisisoil;
     @SerializedName("sensorsoil")
     @Expose
     private String sensorsoil;
+
+    @SerializedName("kondisisoil2")
+    @Expose
+    private String kondisisoil2;
+    @SerializedName("sensorsoil2")
+    @Expose
+    private String sensorsoil2;
+
     @SerializedName("flowrate")
     @Expose
     private String flowrate;
@@ -112,5 +121,21 @@ public class Data {
 
     public void setSolenoid(String solenoid) {
         this.solenoid = solenoid;
+    }
+
+    public String getKondisisoil2() {
+        return kondisisoil2;
+    }
+
+    public void setKondisisoil2(String kondisisoil2) {
+        this.kondisisoil2 = kondisisoil2;
+    }
+
+    public String getSensorsoil2() {
+        return sensorsoil2;
+    }
+
+    public void setSensorsoil2(String sensorsoil2) {
+        this.sensorsoil2 = sensorsoil2;
     }
 }

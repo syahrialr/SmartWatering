@@ -1,42 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="210dp"
         android:gravity="center"
         android:id="@+id/ludara"
         android:background="@color/colorPrimaryDark"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/real_condition"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/putih"
-            android:gravity="center"
-            android:text="--%"
-            android:textSize="72sp"
-            />
+        <com.github.lzyzsd.circleprogress.ArcProgress
+            android:id="@+id/arc_progress2"
+            custom:arc_unfinished_color="#80000000"
+            custom:arc_finished_color="@color/putih"
+            android:layout_centerInParent="true"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            custom:arc_bottom_text="UDARA"
+            custom:arc_text_color="@color/putih"
+            custom:arc_bottom_text_size="20sp"/>
 
-        <TextView
-            android:id="@+id/k_kelembaban"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text=""
-            android:textColor="@color/putih"
-            android:textSize="24sp" />
 
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/card_recycler_view"
+    <org.eazegraph.lib.charts.ValueLineChart
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cubiclinechart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical" />
+        android:layout_height="wrap_content"
+        app:egUseCubic="true"
+        app:egUseOverlapFill="true"
+        app:egCurveSmoothness="0.4"
+        app:egIndicatorLineColor="#FE6DA8"
+        app:egLegendHeight="40dp"
+        app:egShowStandardValue="true"/>
+
 
 </LinearLayout>

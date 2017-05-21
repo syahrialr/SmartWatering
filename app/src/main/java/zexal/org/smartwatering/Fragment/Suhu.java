@@ -2,7 +2,6 @@ package zexal.org.smartwatering.Fragment;
 
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,21 +9,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import com.github.lzyzsd.circleprogress.ArcProgress;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import pl.pawelkleczkowski.customgauge.CustomGauge;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import zexal.org.smartwatering.Data;
-import zexal.org.smartwatering.DataAdapter;
+import zexal.org.smartwatering.Adapter.DataAdapter;
 import zexal.org.smartwatering.R;
 import zexal.org.smartwatering.RequestInterface;
 
@@ -39,13 +38,9 @@ public class Suhu extends Fragment {
     private DataAdapter adapter;
     String url = "http://krstudio.web.id";
 
-    @BindView(R.id.gauge1)
-    CustomGauge mGauge;
 
-    @BindView(R.id.real_condition)
-    TextView suhuReal;
-    @BindView(R.id.lsuhu)
-    LinearLayout linear;
+    @BindView(R.id.arc_progress3) ArcProgress progress;
+    @BindView(R.id.lsuhu) LinearLayout linear;
 
     public Suhu() {
         // Required empty public constructor
@@ -110,21 +105,18 @@ public class Suhu extends Fragment {
     }
 
     private void updateTextView(String suhu) {
-        if(Float.parseFloat(suhu)>=31.00) {
-            suhuReal.setText(suhu + " \u2103");
+        int x =(int) Float.parseFloat(suhu);
+        if(x>=31) {
+           progress.setProgress(x);
             linear.setBackgroundResource(R.color.merah);
         }else
         {
-            suhuReal.setText(suhu + " \u2103");
+            progress.setProgress(x);
             linear.setBackgroundResource(R.color.colorPrimaryDark);
         }
 
     }
 
-    private void setmGauge(String su){
-        int x = (int) Float.parseFloat(su);
-        mGauge.setValue(x);
-    }
 
     private void initViews(View v) {
         recyclerView = (RecyclerView) v.findViewById(R.id.card_recycler_view);
@@ -145,7 +137,6 @@ public class Suhu extends Fragment {
             @Override
             public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
                 updateTextView(response.body().get(0).getTemp());
-                setmGauge(response.body().get(0).getTemp());
                 adapter = new DataAdapter(response.body());
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
