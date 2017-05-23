@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
+import com.github.lzyzsd.circleprogress.ArcProgress;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,16 +39,19 @@ public class Beranda extends Fragment implements View.OnClickListener{
 
     private RecyclerView recyclerView, recyclerView2, recyclerView3;
     private ArrayList<Data> data;
+    @BindView(R.id.brd_progress_dev1) ArcProgress progress1;
+    @BindView(R.id.brd_progress_dev2) ArcProgress progress2;
+    @BindView(R.id.brd_progress_udara) ArcProgress progress3;
+    @BindView(R.id.brd_progress_suhu) ArcProgress progress4;
+    @BindView(R.id.brdktanah) TextView ktanah1;
+    @BindView(R.id.brdktanah2) TextView ktanah2;
+
+
     private SoilAdapter adapter;
     private HumiAdapter adapter2;
     private DataAdapter adapter3;
     String url = "http://krstudio.web.id";
 
-
-    @BindView(R.id.beranda_vtanah)TextView soilReal;
-    @BindView(R.id.beranda_ktanah) TextView kondisi;
-    @BindView(R.id.beranda_vsuhu) TextView suhuReal;
-    @BindView(R.id.beranda_vudara) TextView humiReal;
     @BindView(R.id.lb1) LinearLayout l1;
     @BindView(R.id.lb2) LinearLayout l2;
     @BindView(R.id.lb3) LinearLayout l3;
@@ -129,29 +133,29 @@ public class Beranda extends Fragment implements View.OnClickListener{
         return v;
     }
 
-    private void updateTextView(String suhu) {
+    private void updateTextSuhu(String suhu) {
         int x =(int) Float.parseFloat(suhu);
         if(x>=31) {
-            suhuReal.setText(String.valueOf(x) + "°C");
+            progress4.setProgress(x);
             l2.setBackgroundResource(R.color.merah);
         }else
         {
-            suhuReal.setText(String.valueOf(x) + "°C");
+            progress4.setProgress(x);
             l2.setBackgroundResource(R.color.colorPrimaryDark);
         }
     }
     private void updateTextHumi(String humi){
         int x = (int) Float.parseFloat(humi);
         if(x>=50) {
-            humiReal.setText(String.valueOf(x) + "\u0025");
+            progress3.setProgress(x);
             l3.setBackgroundResource(R.color.colorPrimaryDark);
         }
         else {
-            humiReal.setText(String.valueOf(x) + " \u0025");
+            progress3.setProgress(x);
             l3.setBackgroundResource(R.color.merah);
         }
     }
-    private void updateTextSoil(String tanah,String kondisii){
+    private void updateTextTanah(String tanah,String kondisii){
         int temp;
         float hasil;
         float patokan=700;
@@ -160,22 +164,42 @@ public class Beranda extends Fragment implements View.OnClickListener{
         int hasil2= (int) hasil;
         if(Integer.parseInt(tanah)>=700)
         {
-            soilReal.setText(100+" \u0025");
-            kondisi.setText(kondisii);
+            progress1.setProgress(100);
+            ktanah1.setText(kondisii);
             l1.setBackgroundResource(R.color.colorPrimaryDark);
         }else if(Integer.parseInt(tanah)>=300 && Integer.parseInt(tanah)<=700)
         {
-            soilReal.setText(hasil2+" \u0025");
-            kondisi.setText(kondisii);
+            progress1.setProgress(hasil2);
+            ktanah1.setText(kondisii);
             l1.setBackgroundResource(R.color.hijau);
-
-
         }else if(Integer.parseInt(tanah)<=300)
         {
-            soilReal.setText(hasil2+" \u0025");
-            kondisi.setText(kondisii);
+            progress1.setProgress(hasil2);
+            ktanah1.setText(kondisii);
             l1.setBackgroundResource(R.color.merah);
+        }
 
+    }
+    private void updateTextTanah2(String tanah,String kondisii)
+    {
+        int temp;
+        float hasil;
+        float patokan=700;
+        temp= (int) Float.parseFloat(tanah);
+        hasil=temp/patokan*100;
+        int hasil2= (int) hasil;
+        if(Integer.parseInt(tanah)>=700)
+        {
+            progress2.setProgress(100);
+            ktanah2.setText(kondisii);
+        }else if(Integer.parseInt(tanah)>=300 && Integer.parseInt(tanah)<=700)
+        {
+            progress2.setProgress(hasil2);
+            ktanah2.setText(kondisii);
+        }else if(Integer.parseInt(tanah)<=300)
+        {
+            progress2.setProgress(hasil2);
+            ktanah2.setText(kondisii);
         }
 
     }
@@ -190,10 +214,10 @@ public class Beranda extends Fragment implements View.OnClickListener{
         call.enqueue(new Callback<List<Data>>() {
             @Override
             public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
-                updateTextView(response.body().get(0).getTemp());
+                updateTextSuhu(response.body().get(0).getTemp());
                 updateTextHumi(response.body().get(0).getHumi());
-                updateTextSoil(response.body().get(0).getSensorsoil(),response.body().get(0).getKondisisoil());
-
+                updateTextTanah(response.body().get(0).getSensorsoil(),response.body().get(0).getKondisisoil());
+                updateTextTanah2(response.body().get(0).getSensorsoil2(),response.body().get(0).getKondisisoil2());
             }
 
             @Override
@@ -243,10 +267,10 @@ public class Beranda extends Fragment implements View.OnClickListener{
             case R.id.lb1:
                 mExpandLayout.toggle();
                 break;
-            case R.id.lb3:
+            case R.id.lb2:
                 mExpandLayout2.toggle();
                 break;
-            case R.id.lb2:
+            case R.id.lb3:
                 mExpandLayout3.toggle();
                 break;
         }

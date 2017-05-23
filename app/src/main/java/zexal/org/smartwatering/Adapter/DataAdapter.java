@@ -32,8 +32,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     public void onBindViewHolder(DataAdapter.ViewHolder viewHolder, int i) {
 
         int x = (int) Float.parseFloat(datas.get(i).getTemp());
-        viewHolder.tv_name.setText(String.valueOf(x)+"°C");
-        viewHolder.tv_version.setText(datas.get(i).getTime());
+        viewHolder.text1.setText(String.valueOf(x)+"°C");
+        viewHolder.text2.setText(datas.get(i).getTime());
 
     }
 
@@ -43,12 +43,12 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView tv_name,tv_version;
+        private TextView text1,text2;
         public ViewHolder(View view) {
             super(view);
 
-            tv_name = (TextView)view.findViewById(R.id.tv_name);
-            tv_version = (TextView)view.findViewById(R.id.tv_version);
+            text1 = (TextView)view.findViewById(R.id.txt1);
+            text2 = (TextView)view.findViewById(R.id.txt2);
 
         }
     }

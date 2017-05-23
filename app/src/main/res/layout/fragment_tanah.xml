@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
+
+    >
+<LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="210dp"
+        android:layout_height="200dp"
         android:gravity="center"
         android:id="@+id/ltanah"
         android:background="#7CB342"
@@ -78,11 +84,48 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/card_recycler_view"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical" />
+        android:layout_height="wrap_content"
+        android:text="DEV 1"
+        android:gravity="center"
+        android:textColor="@color/hitam"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        />
+
+    <org.eazegraph.lib.charts.ValueLineChart
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/charttanah1"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        app:egUseCubic="true"
+        app:egUseOverlapFill="true"
+        app:egCurveSmoothness="0.4"
+        app:egIndicatorLineColor="#FE6DA8"
+        app:egLegendHeight="40dp"
+        app:egShowStandardValue="true"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DEV 2"
+        android:gravity="center"
+        android:textColor="@color/hitam"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        />
+
+    <org.eazegraph.lib.charts.ValueLineChart
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/charttanah2"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        app:egUseCubic="true"
+        app:egUseOverlapFill="true"
+        app:egCurveSmoothness="0.4"
+        app:egIndicatorLineColor="#FE6DA8"
+        app:egLegendHeight="40dp"
+        app:egShowStandardValue="true"/>
 
 </LinearLayout>
+</ScrollView>

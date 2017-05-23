@@ -47,8 +47,8 @@ public class Udara extends Fragment {
     @BindView(R.id.ludara) LinearLayout linear;
     @BindView(R.id.arc_progress2)
     ArcProgress progress;
+    @BindView(R.id.cubiclinechart) ValueLineChart mCubicValueLineChart;
 
-    ValueLineChart mCubicValueLineChart;
 
     public Udara() {
         // Required empty public constructor
@@ -60,8 +60,6 @@ public class Udara extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_udara, container, false);
-
-        mCubicValueLineChart = (ValueLineChart) v.findViewById(R.id.cubiclinechart);
 
 
         ButterKnife.bind(this,v);
@@ -97,11 +95,7 @@ public class Udara extends Fragment {
         return v;
     }
 
-
-
-
-
-    private void updateTextView(String udara) {
+    private void updateTextHumi(String udara) {
         int x = (int) Float.parseFloat(udara);
         if(x>=50) {
             progress.setProgress(x);
@@ -124,7 +118,7 @@ public class Udara extends Fragment {
         call.enqueue(new Callback<List<Data>>() {
             @Override
             public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
-                updateTextView(response.body().get(0).getHumi());
+                updateTextHumi(response.body().get(0).getHumi());
 
             }
 

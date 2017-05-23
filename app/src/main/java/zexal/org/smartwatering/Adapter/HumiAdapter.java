@@ -34,8 +34,8 @@ public class HumiAdapter extends RecyclerView.Adapter<HumiAdapter.ViewHolder> {
     public void onBindViewHolder(HumiAdapter.ViewHolder viewHolder, int i) {
 
         int x = (int) Float.parseFloat(datas.get(i).getHumi());
-        viewHolder.tv_name.setText(x+"%");
-        viewHolder.tv_version.setText(datas.get(i).getTime());
+        viewHolder.text1.setText(x+"%");
+        viewHolder.text2.setText(datas.get(i).getTime());
     }
 
     @Override
@@ -43,12 +43,12 @@ public class HumiAdapter extends RecyclerView.Adapter<HumiAdapter.ViewHolder> {
         return datas.size();
     }
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView tv_name,tv_version;
+        private TextView text1,text2;
         public ViewHolder(View view) {
             super(view);
 
-            tv_name = (TextView)view.findViewById(R.id.tv_name);
-            tv_version = (TextView)view.findViewById(R.id.tv_version);
+            text1 = (TextView)view.findViewById(R.id.txt1);
+            text2 = (TextView)view.findViewById(R.id.txt2);
 
         }
     }

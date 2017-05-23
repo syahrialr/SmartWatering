@@ -13,6 +13,16 @@
         android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Penyiraman Manual"
+            android:gravity="center"
+            android:textColor="@color/hitam"
+            android:textStyle="bold"
+            android:layout_marginBottom="15dp"
+            />
 
 
 
@@ -26,7 +36,6 @@
             app:cpb_textComplete="ON"
             app:cpb_iconError="@drawable/ic_action_cancel"
             app:cpb_textIdle="Off" />
-
 
     </LinearLayout>
 </RelativeLayout>

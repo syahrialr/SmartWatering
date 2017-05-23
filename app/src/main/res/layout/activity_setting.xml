@@ -1,9 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="zexal.org.smartwatering.Setting"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+
+    >
+<LinearLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="zexal.org.smartwatering.Setting">
+    android:layout_margin="@dimen/activity_horizontal_margin"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="50dp"
+    android:orientation="vertical"
+    android:paddingBottom="50dp"
 
-</android.support.constraint.ConstraintLayout>
+    >
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_gravity="center"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/ic_splash"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SMART WATERING"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="@color/hitam"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Aplikasi pengatur penyiraman otomatis pada Greenhouse  "
+        android:gravity="center"
+        android:textSize="12sp"
+        android:textColor="@color/hitam"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Developer : "
+        android:gravity="center"
+        android:textSize="12sp"
+        android:textColor="@color/hitam"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Nur Ilham Senjaya "
+        android:gravity="center"
+        android:textSize="12sp"
+        android:textColor="@color/hitam"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="nuril.ham100@gmail.com"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:textColor="@color/hitam"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="M Syahrial Rukmana "
+        android:gravity="center"
+        android:textSize="12sp"
+        android:textColor="@color/hitam"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="syahrial1@live.com"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:textColor="@color/hitam"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Lisnawaty Nuramanah"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:textColor="@color/hitam"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="lisnawaty.nuramanah@gmail.com"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:textColor="@color/hitam"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Supervisor : "
+        android:gravity="center"
+        android:textSize="12sp"
+        android:textColor="@color/hitam"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Hariandi Maulid"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:textColor="@color/hitam"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text=""
+        android:gravity="center"
+        android:textSize="12sp"
+        android:textColor="@color/hitam"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Rizza Indah Mega Mandasari"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:textColor="@color/hitam"
+        />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/hitam"
+        android:textSize="12sp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_d3if"/>
+        <ImageView
+            android:layout_marginLeft="20dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/zexal"/>
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="Copyright © 2016 Prodi D3 Teknik Informatika"
+        android:textColor="@color/hitam"
+        android:textSize="12sp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="Fakultas Ilmu Terapan – Universitas Telkom"
+        android:textColor="@color/hitam"
+        android:textSize="12sp"/>
+
+
+</LinearLayout>
+</ScrollView>

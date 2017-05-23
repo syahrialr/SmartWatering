@@ -13,7 +13,7 @@
         android:layout_margin="10dp"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/txt1"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:textSize="18sp"
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold" />
         <TextView
-            android:id="@+id/tv_version"
+            android:id="@+id/txt2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
