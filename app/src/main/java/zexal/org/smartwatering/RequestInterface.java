@@ -18,10 +18,4 @@ public interface RequestInterface {
     @GET("/data")
     Call<List<Data>> getJSON();
     //kalem
-
-
-    @GET("/update")
-    Call<Data> postOnOff(@Query("api_key") String apikey);
-
-
 }

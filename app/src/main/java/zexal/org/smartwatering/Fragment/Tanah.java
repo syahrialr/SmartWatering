@@ -50,7 +50,8 @@ public class Tanah extends Fragment {
     private SoilAdapter adapter;
     String url = "http://krstudio.web.id";
     private Timer timer;
-
+    @BindView(R.id.utamaranah) LinearLayout utamanya;
+    @BindView(R.id.errorlayout) LinearLayout error;
 
     @BindView(R.id.ltanah) LinearLayout linear;
     @BindView(R.id.arc_progress)
@@ -116,34 +117,49 @@ public class Tanah extends Fragment {
         return v;
     }
 
-    private void updateTextTanah(String tanah,String kondisii) {
+    private void updateTextTanah(String tanah,String tanah2){
         int temp;
         float hasil;
         float patokan=700;
+        int hasil2;
+        float hasil3;
+        int hasil4;
+        int temp2;
         temp= (int) Float.parseFloat(tanah);
+        temp2=(int) Float.parseFloat(tanah2);
         hasil=temp/patokan*100;
-        int hasil2= (int) hasil;
-        if(Integer.parseInt(tanah)>=700)
+        hasil2= (int) hasil;
+        hasil3=temp2/patokan*100;
+        hasil4= (int) hasil3;
+
+        if(Integer.parseInt(tanah)>=700&&Integer.parseInt(tanah2)>=700)
         {
             progress.setProgress(100);
-            kt.setText(kondisii);
+            kt.setText("Air Lebih dari Cukup");
+            progress2.setProgress(100);
+            kt2.setText("Air Lebih dari Cukup");
+
             linear.setBackgroundResource(R.color.colorPrimaryDark);
-        }else if(Integer.parseInt(tanah)>=300 && Integer.parseInt(tanah)<=700)
+        }else if(Integer.parseInt(tanah)>=300 && Integer.parseInt(tanah)<=700&&Integer.parseInt(tanah2)>=300 && Integer.parseInt(tanah2)<=700)
         {
             progress.setProgress(hasil2);
-            kt.setText(kondisii);
+            kt.setText("Tanah Lembab");
+            progress2.setProgress(hasil4);
+            kt2.setText("Tanah Lembab");
+
             linear.setBackgroundResource(R.color.hijau);
-        }else if(Integer.parseInt(tanah)<=300)
+        }else if(Integer.parseInt(tanah)<=300&&Integer.parseInt(tanah)<=300)
         {
             progress.setProgress(hasil2);
-            kt.setText(kondisii);
+            kt.setText("Tanah Kering");
+            progress2.setProgress(hasil4);
+            kt2.setText("Tanah Kering");
+
             linear.setBackgroundResource(R.color.merah);
         }
 
-
-
     }
-    private void updateTextTanah2(String tanah,String kondisii)
+  /*  private void updateTextTanah2(String tanah,String kondisii)
     {
         int temp;
         float hasil;
@@ -165,7 +181,7 @@ public class Tanah extends Fragment {
             kt2.setText(kondisii);
         }
 
-    }
+    }*/
 
 
     private void loadJSON() {
@@ -178,8 +194,8 @@ public class Tanah extends Fragment {
         call.enqueue(new Callback<List<Data>>() {
             @Override
             public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
-                updateTextTanah(response.body().get(0).getSensorsoil(),response.body().get(0).getKondisisoil());
-                updateTextTanah2(response.body().get(0).getSensorsoil2(),response.body().get(0).getKondisisoil2());
+                updateTextTanah(response.body().get(0).getSensorsoil(),response.body().get(0).getSensorsoil2());
+                //updateTextTanah2(response.body().get(0).getSensorsoil2(),response.body().get(0).getKondisisoil2());
 
             }
 
@@ -200,6 +216,8 @@ public class Tanah extends Fragment {
         call.enqueue(new Callback<List<Data>>() {
             @Override
             public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
+                error.setVisibility(View.GONE);
+                utamanya.setVisibility(View.VISIBLE);
                 for (int i = 0; i < response.body().size(); i++) {
                     String[] split = response.body().get(i).getTime().split(" ");
                     int temp;
@@ -216,8 +234,7 @@ public class Tanah extends Fragment {
                     int fhasil2=(int) fhasil;
 
                     datagraph.add(new DataGrahp(split[1],hasil2));
-                    datagraph2.add(new DataGrahp(split[1
-                            ],fhasil2));
+                    datagraph2.add(new DataGrahp(split[1],fhasil2));
 
                 }
 
@@ -239,7 +256,8 @@ public class Tanah extends Fragment {
 
             @Override
             public void onFailure(Call<List<Data>> call, Throwable t) {
-
+                error.setVisibility(View.VISIBLE);
+                utamanya.setVisibility(View.GONE);
             }
         });
 

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.github.lzyzsd.circleprogress.ArcProgress;
 
@@ -44,10 +45,18 @@ public class Udara extends Fragment {
     ArrayList<DataGrahp> datagraph = new ArrayList<>();
     private HumiAdapter adapter;
     String url = "http://krstudio.web.id";
+
+    @BindView(R.id.utamaudara) LinearLayout utamanya;
+    @BindView(R.id.errorlayout) LinearLayout error;
     @BindView(R.id.ludara) LinearLayout linear;
     @BindView(R.id.arc_progress2)
     ArcProgress progress;
     @BindView(R.id.cubiclinechart) ValueLineChart mCubicValueLineChart;
+    @BindView(R.id.kudara)
+    TextView ku;
+    @BindView(R.id.kudara2)
+    TextView ku2;
+
 
 
     public Udara() {
@@ -100,8 +109,12 @@ public class Udara extends Fragment {
         if(x>=50) {
             progress.setProgress(x);
             linear.setBackgroundResource(R.color.colorPrimaryDark);
+            ku.setText("Ruangan Terasa Kering");
+            ku2.setVisibility(View.VISIBLE);
         }
             else {
+                ku.setText("Ruangan Lembab");
+                ku2.setVisibility(View.GONE);
                 progress.setProgress(x);
                 linear.setBackgroundResource(R.color.merah);
             }
@@ -139,6 +152,8 @@ public class Udara extends Fragment {
         call.enqueue(new Callback<List<Data>>() {
             @Override
             public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
+                error.setVisibility(View.GONE);
+                utamanya.setVisibility(View.VISIBLE);
                 for (int i = 0; i < response.body().size(); i++) {
                     String[] split = response.body().get(i).getTime().split(" ");
                     datagraph.add(new DataGrahp(split[1],Float.parseFloat(response.body().get(i).getHumi())));
@@ -158,7 +173,8 @@ public class Udara extends Fragment {
 
             @Override
             public void onFailure(Call<List<Data>> call, Throwable t) {
-
+                error.setVisibility(View.VISIBLE);
+                utamanya.setVisibility(View.GONE);
             }
         });
 

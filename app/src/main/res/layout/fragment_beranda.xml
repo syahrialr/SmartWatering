@@ -6,91 +6,101 @@
 <LinearLayout android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:visibility="visible"
     tools:context="zexal.org.smartwatering.Fragment.Beranda"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-
+    <include layout="@layout/connection_error"></include>
     <LinearLayout
-        android:id="@+id/lb1"
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:layout_marginTop="5dp"
-        android:background="@color/merah"
-        android:gravity="center"
-        android:orientation="horizontal">
+    android:id="@+id/utamalayout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:id="@+id/lb1"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/merah"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="DEV 1"
-                android:textColor="@color/putih"
-                android:textSize="16sp" />
+                android:orientation="vertical"
+                android:layout_marginRight="20dp"
+                >
 
-            <com.github.lzyzsd.circleprogress.ArcProgress
-                android:id="@+id/brd_progress_dev1"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                custom:arc_bottom_text="TANAH"
-                custom:arc_bottom_text_size="16sp"
-                custom:arc_finished_color="@color/putih"
-                custom:arc_text_color="@color/putih"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Sensor Soil 1"
+                    android:textColor="@color/putih"
+                    android:textSize="16sp" />
 
-                custom:arc_unfinished_color="#80000000" />
+                <com.github.lzyzsd.circleprogress.ArcProgress
+                    android:id="@+id/brd_progress_dev1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    custom:arc_bottom_text="TANAH"
+                    custom:arc_bottom_text_size="16sp"
+                    custom:arc_finished_color="@color/putih"
+                    custom:arc_text_color="@color/putih"
 
-            <TextView
-                android:id="@+id/brdktanah"
-                android:layout_width="match_parent"
+                    custom:arc_unfinished_color="#80000000" />
+
+                <TextView
+                    android:id="@+id/brdktanah"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:text="@string/nodata"
+                    android:textColor="@color/putih"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/nodata"
-                android:textColor="@color/putih"
-                android:textSize="16sp" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Sensor Soil 2"
+                    android:textColor="@color/putih"
+                    android:textSize="16sp" />
+
+                <com.github.lzyzsd.circleprogress.ArcProgress
+                    android:id="@+id/brd_progress_dev2"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    custom:arc_bottom_text="TANAH"
+                    custom:arc_bottom_text_size="16sp"
+                    custom:arc_finished_color="@color/putih"
+                    custom:arc_text_color="@color/putih"
+
+                    custom:arc_unfinished_color="#80000000" />
+
+                <TextView
+                    android:id="@+id/brdktanah2"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/nodata"
+                    android:textColor="@color/putih"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="DEV 2"
-                android:textColor="@color/putih"
-                android:textSize="16sp" />
-
-            <com.github.lzyzsd.circleprogress.ArcProgress
-                android:id="@+id/brd_progress_dev2"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                custom:arc_bottom_text="TANAH"
-                custom:arc_bottom_text_size="16sp"
-                custom:arc_finished_color="@color/putih"
-                custom:arc_text_color="@color/putih"
-
-                custom:arc_unfinished_color="#80000000" />
-
-            <TextView
-                android:id="@+id/brdktanah2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/nodata"
-                android:textColor="@color/putih"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+        <com.github.aakira.expandablelayout.ExpandableRelativeLayout
         android:id="@+id/expandableLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -106,36 +116,16 @@
                 android:id="@+id/list_tanah"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:scrollbars="vertical" />
+                android:scrollbars="vertical"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
         </RelativeLayout>
 
     </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/lb2"
-        android:layout_marginTop="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:background="@color/colorPrimaryDark"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <com.github.lzyzsd.circleprogress.ArcProgress
-            android:id="@+id/brd_progress_udara"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerInParent="true"
-            custom:arc_bottom_text="UDARA"
-            custom:arc_bottom_text_size="16sp"
-            custom:arc_finished_color="@color/putih"
-            custom:arc_text_color="@color/putih"
-            custom:arc_unfinished_color="#80000000" />
-
-
-    </LinearLayout>
-
-    <org.eazegraph.lib.charts.ValueLineChart
+        <org.eazegraph.lib.charts.ValueLineChart
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cubiclinechart"
         android:layout_width="match_parent"
@@ -147,7 +137,47 @@
         app:egLegendHeight="40dp"
         app:egShowStandardValue="true"/>
 
-    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+        <LinearLayout
+            android:id="@+id/lb2"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.github.lzyzsd.circleprogress.ArcProgress
+                    android:id="@+id/brd_progress_udara"
+                    android:layout_width="100dp"
+                    android:layout_gravity="center"
+                    android:layout_height="100dp"
+                    android:layout_centerInParent="true"
+                    custom:arc_bottom_text="UDARA"
+                    custom:arc_bottom_text_size="16sp"
+                    custom:arc_finished_color="@color/putih"
+                    custom:arc_text_color="@color/putih"
+                    custom:arc_unfinished_color="#80000000" />
+
+                <TextView
+                    android:id="@+id/brd_kudara"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/nodata"
+                    android:textColor="@color/putih"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <com.github.aakira.expandablelayout.ExpandableRelativeLayout
         android:id="@+id/expandableLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -175,6 +205,7 @@
         android:layout_marginTop="5dp"
         android:gravity="center"
         android:id="@+id/lb3"
+
         android:background="@color/merah"
         android:orientation="vertical">
 
@@ -190,6 +221,14 @@
             custom:arc_bottom_text="SUHU"
             custom:arc_text_color="@color/putih"
             custom:arc_bottom_text_size="16sp"/>
+        <TextView
+            android:id="@+id/brd_ksuhu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/nodata"
+            android:textColor="@color/putih"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -214,7 +253,8 @@
         </RelativeLayout>
 
     </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
-
+</LinearLayout>
 
 </LinearLayout>
+
 </ScrollView>

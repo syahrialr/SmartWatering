@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.github.lzyzsd.circleprogress.ArcProgress;
 
@@ -44,11 +45,13 @@ public class Suhu extends Fragment {
     private DataAdapter adapter;
     String url = "http://krstudio.web.id";
 
-
+    @BindView(R.id.utamasuhu) LinearLayout utamanya;
+    @BindView(R.id.errorlayout) LinearLayout error;
     @BindView(R.id.arc_progress3) ArcProgress progress;
     @BindView(R.id.lsuhu) LinearLayout linear;
-    @BindView(R.id.chartsuhu)
-    ValueLineChart mCubicValueLineChart;
+    @BindView(R.id.chartsuhu) ValueLineChart mCubicValueLineChart;
+    @BindView(R.id.ksuhu)  TextView ks;
+    @BindView(R.id.ksuhu2) TextView ks2;
     ArrayList<DataGrahp> datagraph = new ArrayList<>();
 
 
@@ -117,9 +120,13 @@ public class Suhu extends Fragment {
         int x =(int) Float.parseFloat(suhu);
         if(x>=31) {
            progress.setProgress(x);
+            ks.setText("Ruangan Terlalu Panas");
+            ks2.setVisibility(View.VISIBLE);
             linear.setBackgroundResource(R.color.merah);
         }else
         {
+            ks.setText("Ruangan Sejuk");
+            ks2.setVisibility(View.GONE);
             progress.setProgress(x);
             linear.setBackgroundResource(R.color.colorPrimaryDark);
         }
@@ -161,6 +168,8 @@ public class Suhu extends Fragment {
         call.enqueue(new Callback<List<Data>>() {
             @Override
             public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
+                error.setVisibility(View.GONE);
+                utamanya.setVisibility(View.VISIBLE);
                 for (int i = 0; i < response.body().size(); i++) {
                     String[] split = response.body().get(i).getTime().split(" ");
                     datagraph.add(new DataGrahp(split[1],Float.parseFloat(response.body().get(i).getTemp())));
@@ -179,7 +188,8 @@ public class Suhu extends Fragment {
 
             @Override
             public void onFailure(Call<List<Data>> call, Throwable t) {
-
+                error.setVisibility(View.VISIBLE);
+                utamanya.setVisibility(View.GONE);
             }
         });
 

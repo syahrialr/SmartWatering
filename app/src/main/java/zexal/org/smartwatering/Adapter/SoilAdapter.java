@@ -31,8 +31,6 @@ public class SoilAdapter extends RecyclerView.Adapter<SoilAdapter.ViewHolder> {
     public SoilAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_row2, viewGroup, false);
         return new SoilAdapter.ViewHolder(view);
-
-
     }
 
 
@@ -50,11 +48,17 @@ public class SoilAdapter extends RecyclerView.Adapter<SoilAdapter.ViewHolder> {
             viewHolder.textsoil1.setText(String.valueOf(100)+"%"+" DEV 1");
             viewHolder.textsoil2.setText(datas.get(i).getTime());
             viewHolder.textsoil3.setText(datas.get(i).getKondisisoil());
+            viewHolder.textsoil4.setText(String.valueOf(100)+"%"+" DEV 2");
+            viewHolder.textsoil5.setText(datas.get(i).getTime());
+            viewHolder.textsoil6.setText(datas.get(i).getKondisisoil2());
         }else if(x<=700)
         {
             viewHolder.textsoil1.setText(String.valueOf(hasil2)+"%"+" DEV 1");
             viewHolder.textsoil2.setText(datas.get(i).getTime());
             viewHolder.textsoil3.setText(datas.get(i).getKondisisoil());
+            viewHolder.textsoil4.setText(String.valueOf(100)+"%"+" DEV 2");
+            viewHolder.textsoil5.setText(datas.get(i).getTime());
+            viewHolder.textsoil6.setText(datas.get(i).getKondisisoil2());
 
 
         }else if(x<=300)
@@ -62,6 +66,9 @@ public class SoilAdapter extends RecyclerView.Adapter<SoilAdapter.ViewHolder> {
             viewHolder.textsoil1.setText(String.valueOf(hasil2)+"%"+" DEV 1");
             viewHolder.textsoil2.setText(datas.get(i).getTime());
             viewHolder.textsoil3.setText(datas.get(i).getKondisisoil());
+            viewHolder.textsoil4.setText(String.valueOf(100)+"%"+" DEV 2");
+            viewHolder.textsoil5.setText(datas.get(i).getTime());
+            viewHolder.textsoil6.setText(datas.get(i).getKondisisoil2());
 
         }
 
@@ -74,13 +81,16 @@ public class SoilAdapter extends RecyclerView.Adapter<SoilAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView textsoil1,textsoil2,textsoil3;
+        private TextView textsoil1,textsoil2,textsoil3,textsoil4,textsoil5,textsoil6;
         public ViewHolder(View view) {
             super(view);
 
             textsoil1 = (TextView)view.findViewById(R.id.cv1);
             textsoil2 = (TextView)view.findViewById(R.id.cv2);
             textsoil3=(TextView) view.findViewById(R.id.cv3);
+            textsoil4 = (TextView)view.findViewById(R.id.cv4);
+            textsoil5 = (TextView)view.findViewById(R.id.cv5);
+            textsoil6=(TextView) view.findViewById(R.id.cv6);
 
         }
     }
