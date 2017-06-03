@@ -1,17 +1,12 @@
 package zexal.org.smartwatering.Fragment;
 
 
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,7 +19,6 @@ import org.eazegraph.lib.models.ValueLineSeries;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +28,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import zexal.org.smartwatering.Data;
-import zexal.org.smartwatering.DataGrahp;
+import zexal.org.smartwatering.DataGraph;
 import zexal.org.smartwatering.R;
 import zexal.org.smartwatering.RequestInterface;
 import zexal.org.smartwatering.Adapter.SoilAdapter;
@@ -65,8 +59,8 @@ public class Tanah extends Fragment {
     @BindView(R.id.charttanah2)
     ValueLineChart mCubicValueLineChart2;
 
-    ArrayList<DataGrahp> datagraph = new ArrayList<>();
-    ArrayList<DataGrahp> datagraph2 = new ArrayList<>();
+    ArrayList<DataGraph> datagraph = new ArrayList<>();
+    ArrayList<DataGraph> datagraph2 = new ArrayList<>();
 
 
 
@@ -194,6 +188,8 @@ public class Tanah extends Fragment {
         call.enqueue(new Callback<List<Data>>() {
             @Override
             public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
+                utamanya.setVisibility(View.VISIBLE);
+                error.setVisibility(View.GONE);
                 updateTextTanah(response.body().get(0).getSensorsoil(),response.body().get(0).getSensorsoil2());
                 //updateTextTanah2(response.body().get(0).getSensorsoil2(),response.body().get(0).getKondisisoil2());
 
@@ -201,7 +197,8 @@ public class Tanah extends Fragment {
 
             @Override
             public void onFailure(Call<List<Data>> call, Throwable t) {
-
+                error.setVisibility(View.VISIBLE);
+                utamanya.setVisibility(View.GONE);
             }
         });
 
@@ -233,8 +230,8 @@ public class Tanah extends Fragment {
                     int hasil2= (int) hasil;
                     int fhasil2=(int) fhasil;
 
-                    datagraph.add(new DataGrahp(split[1],hasil2));
-                    datagraph2.add(new DataGrahp(split[1],fhasil2));
+                    datagraph.add(new DataGraph(split[1],hasil2));
+                    datagraph2.add(new DataGraph(split[1],fhasil2));
 
                 }
 

@@ -1,6 +1,8 @@
 package zexal.org.smartwatering;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -20,16 +22,36 @@ public class Manual extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manual);
 
-        SwitchButton switchButton = (SwitchButton) findViewById(R.id.switch_button);
+        final SwitchButton switchButton = (SwitchButton) findViewById(R.id.switch_button);
+
+        SharedPreferences sharedPrefs = getSharedPreferences("zexal.org.smartwatering", MODE_PRIVATE);
+        switchButton.setChecked(sharedPrefs.getBoolean("NameOfThingToSave", true));
 
         switchButton.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 if (isChecked) {
+                    SharedPreferences.Editor editor = getSharedPreferences("zexal.org.smartwatering", MODE_PRIVATE).edit();
+                    editor.putBoolean("NameOfThingToSave", true);
+                    editor.apply();
+                    switchButton.setChecked(true);
                     /* Switch is led 1 */
                     new Background_get().execute("update?api_key=QX9HVQ0P3HCPLZHO&field1=1");
                     Toast.makeText(Manual.this, "On!", Toast.LENGTH_LONG).show();
+                    new CountDownTimer(30000, 1000) {
+
+                        public void onTick(long millisUntilFinished) {
+                            switchButton.setEnabled(false);
+                        }
+
+                        public void onFinish() {
+                            switchButton.setEnabled(true);
+                        }
+                    }.start();
                 } else {
+                    SharedPreferences.Editor editor = getSharedPreferences("zexal.org.smartwatering", MODE_PRIVATE).edit();
+                    editor.putBoolean("NameOfThingToSave", false);
+                    editor.apply();
                     new Background_get().execute("update?api_key=QX9HVQ0P3HCPLZHO&field1=0");
                     Toast.makeText(Manual.this, "Off!", Toast.LENGTH_LONG).show();
                 }

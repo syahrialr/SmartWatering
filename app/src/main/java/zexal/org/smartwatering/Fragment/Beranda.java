@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.github.lzyzsd.circleprogress.ArcProgress;
@@ -64,7 +65,7 @@ public class Beranda extends Fragment implements View.OnClickListener{
     @BindView(R.id.lb3) LinearLayout l3;
     private ExpandableRelativeLayout mExpandLayout,  mExpandLayout2,  mExpandLayout3;
 
-
+    boolean datanull = false;
 
 
 
@@ -114,7 +115,7 @@ public class Beranda extends Fragment implements View.OnClickListener{
                     try {
                         Thread.sleep(1000);
 
-                        if(getActivity() == null)
+                        if(getActivity() == null || datanull)
                             return;
 
                         getActivity().runOnUiThread(new Runnable() {
@@ -133,7 +134,8 @@ public class Beranda extends Fragment implements View.OnClickListener{
             }
         };
 
-        t.start();
+        if(!datanull)
+            t.start();
 
         loadJSON();
 
@@ -223,13 +225,17 @@ public class Beranda extends Fragment implements View.OnClickListener{
         call.enqueue(new Callback<List<Data>>() {
             @Override
             public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
-
-                updateTextSuhu(response.body().get(0).getTemp());
-                updateTextHumi(response.body().get(0).getHumi());
-                updateTextTanah(response.body().get(0).getSensorsoil(),response.body().get(0).getSensorsoil2());
-               // updateTextTanah2();
+                if (response.body().size() == 0) {
+                    Toast.makeText(getContext(),"Data Kosong",Toast.LENGTH_SHORT).show();
+                    datanull=true;
+                } else {
+                    datanull = false;
+                    updateTextSuhu(response.body().get(0).getTemp());
+                    updateTextHumi(response.body().get(0).getHumi());
+                    updateTextTanah(response.body().get(0).getSensorsoil(), response.body().get(0).getSensorsoil2());
+                    // updateTextTanah2();
+                }
             }
-
             @Override
             public void onFailure(Call<List<Data>> call, Throwable t) {
 

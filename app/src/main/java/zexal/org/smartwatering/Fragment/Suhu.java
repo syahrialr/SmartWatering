@@ -3,9 +3,7 @@ package zexal.org.smartwatering.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +28,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import zexal.org.smartwatering.Data;
 import zexal.org.smartwatering.Adapter.DataAdapter;
-import zexal.org.smartwatering.DataGrahp;
+import zexal.org.smartwatering.DataGraph;
 import zexal.org.smartwatering.R;
 import zexal.org.smartwatering.RequestInterface;
 
@@ -52,7 +50,7 @@ public class Suhu extends Fragment {
     @BindView(R.id.chartsuhu) ValueLineChart mCubicValueLineChart;
     @BindView(R.id.ksuhu)  TextView ks;
     @BindView(R.id.ksuhu2) TextView ks2;
-    ArrayList<DataGrahp> datagraph = new ArrayList<>();
+    ArrayList<DataGraph> datagraph = new ArrayList<>();
 
 
     public Suhu() {
@@ -168,11 +166,11 @@ public class Suhu extends Fragment {
         call.enqueue(new Callback<List<Data>>() {
             @Override
             public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
-                error.setVisibility(View.GONE);
                 utamanya.setVisibility(View.VISIBLE);
+                error.setVisibility(View.GONE);
                 for (int i = 0; i < response.body().size(); i++) {
                     String[] split = response.body().get(i).getTime().split(" ");
-                    datagraph.add(new DataGrahp(split[1],Float.parseFloat(response.body().get(i).getTemp())));
+                    datagraph.add(new DataGraph(split[1],Float.parseFloat(response.body().get(i).getTemp())));
                 }
 
                 ValueLineSeries series = new ValueLineSeries();

@@ -30,7 +30,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import zexal.org.smartwatering.Data;
 import zexal.org.smartwatering.Adapter.HumiAdapter;
-import zexal.org.smartwatering.DataGrahp;
+import zexal.org.smartwatering.DataGraph;
 import zexal.org.smartwatering.R;
 import zexal.org.smartwatering.RequestInterface;
 
@@ -42,7 +42,7 @@ public class Udara extends Fragment {
 
     private RecyclerView recyclerView;
     private List<Data> data = new ArrayList<>();
-    ArrayList<DataGrahp> datagraph = new ArrayList<>();
+    ArrayList<DataGraph> datagraph = new ArrayList<>();
     private HumiAdapter adapter;
     String url = "http://krstudio.web.id";
 
@@ -131,13 +131,16 @@ public class Udara extends Fragment {
         call.enqueue(new Callback<List<Data>>() {
             @Override
             public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
+                utamanya.setVisibility(View.VISIBLE);
+                error.setVisibility(View.GONE);
                 updateTextHumi(response.body().get(0).getHumi());
 
             }
 
             @Override
             public void onFailure(Call<List<Data>> call, Throwable t) {
-
+                error.setVisibility(View.VISIBLE);
+                utamanya.setVisibility(View.GONE);
             }
         });
 
@@ -156,7 +159,7 @@ public class Udara extends Fragment {
                 utamanya.setVisibility(View.VISIBLE);
                 for (int i = 0; i < response.body().size(); i++) {
                     String[] split = response.body().get(i).getTime().split(" ");
-                    datagraph.add(new DataGrahp(split[1],Float.parseFloat(response.body().get(i).getHumi())));
+                    datagraph.add(new DataGraph(split[1],Float.parseFloat(response.body().get(i).getHumi())));
                     Log.d("ewewewe", "loadDataGraph: "+datagraph.get(i).getLabel());
                 }
 

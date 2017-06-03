@@ -4,11 +4,11 @@ package zexal.org.smartwatering;
  * Created by Ilham on 5/19/2017.
  */
 
-public class DataGrahp {
+public class DataGraph {
     String label;
     float value;
 
-    public DataGrahp(String label, float value) {
+    public DataGraph(String label, float value) {
         this.label = label;
         this.value = value;
     }
