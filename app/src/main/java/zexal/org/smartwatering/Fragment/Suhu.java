@@ -3,11 +3,11 @@ package zexal.org.smartwatering.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.github.lzyzsd.circleprogress.ArcProgress;
@@ -21,13 +21,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import zexal.org.smartwatering.Data;
-import zexal.org.smartwatering.Adapter.DataAdapter;
 import zexal.org.smartwatering.DataGraph;
 import zexal.org.smartwatering.R;
 import zexal.org.smartwatering.RequestInterface;
@@ -36,20 +36,27 @@ import zexal.org.smartwatering.RequestInterface;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Suhu extends Fragment {
+public class Suhu extends Fragment implements View.OnClickListener {
 
-    private RecyclerView recyclerView;
-    private ArrayList<Data> data;
-    private DataAdapter adapter;
     String url = "http://krstudio.web.id";
 
-    @BindView(R.id.utamasuhu) LinearLayout utamanya;
-    @BindView(R.id.errorlayout) LinearLayout error;
-    @BindView(R.id.arc_progress3) ArcProgress progress;
-    @BindView(R.id.lsuhu) LinearLayout linear;
-    @BindView(R.id.chartsuhu) ValueLineChart mCubicValueLineChart;
-    @BindView(R.id.ksuhu)  TextView ks;
-    @BindView(R.id.ksuhu2) TextView ks2;
+    @BindView(R.id.utamasuhu)
+    LinearLayout utamanya;
+    @BindView(R.id.errorlayout)
+    LinearLayout error;
+    @BindView(R.id.arc_progress3)
+    ArcProgress progress;
+    @BindView(R.id.lsuhu)
+    LinearLayout linear;
+    @BindView(R.id.chartsuhu)
+    ValueLineChart mCubicValueLineChart;
+    @BindView(R.id.ksuhu)
+    TextView ks;
+    @BindView(R.id.ksuhu2)
+    TextView ks2;
+    @BindView(R.id.pb)
+    ProgressBar progressBar;
+
     ArrayList<DataGraph> datagraph = new ArrayList<>();
 
 
@@ -144,9 +151,6 @@ public class Suhu extends Fragment {
             @Override
             public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
                 updateTextSuhu(response.body().get(0).getTemp());
-                /*adapter = new DataAdapter(response.body());
-                recyclerView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();*/
             }
 
             @Override
@@ -193,6 +197,12 @@ public class Suhu extends Fragment {
 
     }
 
+    @OnClick(R.id.refresher)
+    public void refresh(){
+        loadJSON();
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
     @Override
     public void onStop() {
         super.onStop();
@@ -211,5 +221,10 @@ public class Suhu extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }

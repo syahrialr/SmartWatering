@@ -5,19 +5,18 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.github.lzyzsd.circleprogress.ArcProgress;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -31,7 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import zexal.org.smartwatering.Adapter.HumiAdapter;
 import zexal.org.smartwatering.Adapter.SoilAdapter;
 import zexal.org.smartwatering.Data;
-import zexal.org.smartwatering.Adapter.DataAdapter;
+import zexal.org.smartwatering.Adapter.TempAdapter;
 import zexal.org.smartwatering.R;
 import zexal.org.smartwatering.RequestInterface;
 
@@ -42,7 +41,6 @@ import zexal.org.smartwatering.RequestInterface;
 public class Beranda extends Fragment implements View.OnClickListener{
 
     private RecyclerView recyclerView, recyclerView2, recyclerView3;
-    private ArrayList<Data> data;
     @BindView(R.id.brd_progress_dev1) ArcProgress progress1;
     @BindView(R.id.brd_progress_dev2) ArcProgress progress2;
     @BindView(R.id.brd_progress_udara) ArcProgress progress3;
@@ -53,11 +51,11 @@ public class Beranda extends Fragment implements View.OnClickListener{
     @BindView(R.id.errorlayout) LinearLayout error;
     @BindView(R.id.brd_ksuhu) TextView ksuhu;
     @BindView(R.id.brd_kudara) TextView kudara;
-
+    @BindView(R.id.pb) ProgressBar progressBar;
 
     private SoilAdapter adapter;
     private HumiAdapter adapter2;
-    private DataAdapter adapter3;
+    private TempAdapter adapter3;
     String url = "http://krstudio.web.id";
 
     @BindView(R.id.lb1) LinearLayout l1;
@@ -185,6 +183,7 @@ public class Beranda extends Fragment implements View.OnClickListener{
         hasil3=temp2/patokan*100;
         hasil4= (int) hasil3;
 
+
         if(Integer.parseInt(tanah)>=700&&Integer.parseInt(tanah2)>=700)
         {
             progress1.setProgress(100);
@@ -265,7 +264,7 @@ public class Beranda extends Fragment implements View.OnClickListener{
                 recyclerView2.setAdapter(adapter2);
                 adapter2.notifyDataSetChanged();
 
-                adapter3 = new DataAdapter(response.body());
+                adapter3 = new TempAdapter(response.body());
                 recyclerView3.setAdapter(adapter3);
                 adapter3.notifyDataSetChanged();
             }
@@ -283,6 +282,7 @@ public class Beranda extends Fragment implements View.OnClickListener{
     public void refresh()
     {
         loadJSON();
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override

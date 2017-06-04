@@ -34,7 +34,7 @@ public class HumiAdapter extends RecyclerView.Adapter<HumiAdapter.ViewHolder> {
     public void onBindViewHolder(HumiAdapter.ViewHolder viewHolder, int i) {
 
         int x = (int) Float.parseFloat(datas.get(i).getHumi());
-        viewHolder.text1.setText(x+"%");
+        viewHolder.text1.setText(x+"\u0025");
         viewHolder.text2.setText(datas.get(i).getTime());
     }
 

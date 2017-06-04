@@ -2,6 +2,7 @@ package zexal.org.smartwatering.Adapter;
 
 import android.support.v7.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,7 @@ import zexal.org.smartwatering.R;
  */
 
 public class SoilAdapter extends RecyclerView.Adapter<SoilAdapter.ViewHolder> {
-    private List<Data> datas;
+    private List<Data> datas,datas2;
 
     public SoilAdapter(List<Data> datas) {
         this.datas = datas;
@@ -38,35 +39,46 @@ public class SoilAdapter extends RecyclerView.Adapter<SoilAdapter.ViewHolder> {
     public void onBindViewHolder(SoilAdapter.ViewHolder viewHolder, int i) {
 
         int x = Integer.parseInt(datas.get(i).getSensorsoil());
-        float temp= x;
+        int y = Integer.parseInt(datas.get(i).getSensorsoil2());
+        int temp;
         float hasil;
         float patokan=700;
+        int hasil2;
+        float hasil3;
+        int hasil4;
+        int temp2;
+
+        temp= x;
+        temp2=y;
         hasil=temp/patokan*100;
-        int hasil2=(int) hasil;
+        hasil2= (int) hasil;
+        hasil3=temp2/patokan*100;
+        hasil4= (int) hasil3;
+
         if(x>=700)
         {
-            viewHolder.textsoil1.setText(String.valueOf(100)+"%"+" DEV 1");
+            viewHolder.textsoil1.setText(String.valueOf(100)+"\u0025"+" Sensor Soil 1");
             viewHolder.textsoil2.setText(datas.get(i).getTime());
             viewHolder.textsoil3.setText(datas.get(i).getKondisisoil());
-            viewHolder.textsoil4.setText(String.valueOf(100)+"%"+" DEV 2");
+            viewHolder.textsoil4.setText(String.valueOf(100)+"\u0025"+" Sensor Soil 2");
             viewHolder.textsoil5.setText(datas.get(i).getTime());
             viewHolder.textsoil6.setText(datas.get(i).getKondisisoil2());
         }else if(x<=700)
         {
-            viewHolder.textsoil1.setText(String.valueOf(hasil2)+"%"+" DEV 1");
+            viewHolder.textsoil1.setText(String.valueOf(hasil2)+"\u0025"+" Sensor Soil 1");
             viewHolder.textsoil2.setText(datas.get(i).getTime());
             viewHolder.textsoil3.setText(datas.get(i).getKondisisoil());
-            viewHolder.textsoil4.setText(String.valueOf(100)+"%"+" DEV 2");
+            viewHolder.textsoil4.setText(String.valueOf(hasil4)+"\u0025"+" Sensor Soil 2");
             viewHolder.textsoil5.setText(datas.get(i).getTime());
             viewHolder.textsoil6.setText(datas.get(i).getKondisisoil2());
 
 
         }else if(x<=300)
         {
-            viewHolder.textsoil1.setText(String.valueOf(hasil2)+"%"+" DEV 1");
+            viewHolder.textsoil1.setText(String.valueOf(hasil2)+"\u0025"+" Sensor Soil 1");
             viewHolder.textsoil2.setText(datas.get(i).getTime());
             viewHolder.textsoil3.setText(datas.get(i).getKondisisoil());
-            viewHolder.textsoil4.setText(String.valueOf(100)+"%"+" DEV 2");
+            viewHolder.textsoil4.setText(String.valueOf(hasil4)+"\u0025"+" Sensor Soil 2");
             viewHolder.textsoil5.setText(datas.get(i).getTime());
             viewHolder.textsoil6.setText(datas.get(i).getKondisisoil2());
 

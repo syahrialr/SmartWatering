@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.suke.widget.SwitchButton;
@@ -14,18 +16,59 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Manual extends AppCompatActivity {
+
+    String url = "http://krstudio.web.id";
+    @BindView(R.id.flowrate) TextView fl;
+    @BindView(R.id.currentliquid) TextView cl;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manual);
 
+        ButterKnife.bind(this);
+
+        Thread t = new Thread(){
+            @Override
+            public void run(){
+                while (!isInterrupted()){
+
+                    try {
+                        Thread.sleep(1000);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                loadJSON();
+                            }
+                        });
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        };
+        t.start();
+
+
         final SwitchButton switchButton = (SwitchButton) findViewById(R.id.switch_button);
 
         SharedPreferences sharedPrefs = getSharedPreferences("zexal.org.smartwatering", MODE_PRIVATE);
-        switchButton.setChecked(sharedPrefs.getBoolean("NameOfThingToSave", true));
+        switchButton.setChecked(sharedPrefs.getBoolean("NameOfThingToSave", false));
 
         switchButton.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
@@ -85,6 +128,33 @@ public class Manual extends AppCompatActivity {
             }
             return null;
         }
+
+    }
+
+    private void loadJSON() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RequestInterface request = retrofit.create(RequestInterface.class);
+        Call<List<Data>> call = request.getJSON();
+        call.enqueue(new Callback<List<Data>>() {
+            @Override
+            public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
+                updateTextSuhu(response.body().get(0).getFlowrate(),response.body().get(0).getCurrentliquid());
+            }
+
+            @Override
+            public void onFailure(Call<List<Data>> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    private void updateTextSuhu(String flowrate, String currentliquid) {
+        fl.setText("Debit : " + flowrate + " L/Min");
+        cl.setText("Current Liquid Flowing : " + currentliquid + " mL/Sec");
 
     }
 

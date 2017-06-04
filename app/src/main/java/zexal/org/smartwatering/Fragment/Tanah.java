@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.github.lzyzsd.circleprogress.ArcProgress;
@@ -22,6 +23,7 @@ import java.util.Timer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,13 +39,9 @@ import zexal.org.smartwatering.Adapter.SoilAdapter;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Tanah extends Fragment {
+public class Tanah extends Fragment implements View.OnClickListener {
 
-    private RecyclerView recyclerView;
-    private ArrayList<Data> data;
-    private SoilAdapter adapter;
     String url = "http://krstudio.web.id";
-    private Timer timer;
     @BindView(R.id.utamaranah) LinearLayout utamanya;
     @BindView(R.id.errorlayout) LinearLayout error;
 
@@ -58,6 +56,8 @@ public class Tanah extends Fragment {
     ValueLineChart mCubicValueLineChart;
     @BindView(R.id.charttanah2)
     ValueLineChart mCubicValueLineChart2;
+    @BindView(R.id.pb)
+    ProgressBar progressBar;
 
     ArrayList<DataGraph> datagraph = new ArrayList<>();
     ArrayList<DataGraph> datagraph2 = new ArrayList<>();
@@ -106,8 +106,6 @@ public class Tanah extends Fragment {
         t.start();
         loadgraphJSON();
 
-        //initViews(v);
-
         return v;
     }
 
@@ -153,30 +151,6 @@ public class Tanah extends Fragment {
         }
 
     }
-  /*  private void updateTextTanah2(String tanah,String kondisii)
-    {
-        int temp;
-        float hasil;
-        float patokan=700;
-        temp= (int) Float.parseFloat(tanah);
-        hasil=temp/patokan*100;
-        int hasil2= (int) hasil;
-        if(Integer.parseInt(tanah)>=700)
-        {
-            progress2.setProgress(100);
-            kt2.setText(kondisii);
-        }else if(Integer.parseInt(tanah)>=300 && Integer.parseInt(tanah)<=700)
-        {
-            progress2.setProgress(hasil2);
-            kt2.setText(kondisii);
-        }else if(Integer.parseInt(tanah)<=300)
-        {
-            progress2.setProgress(hasil2);
-            kt2.setText(kondisii);
-        }
-
-    }*/
-
 
     private void loadJSON() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -188,17 +162,11 @@ public class Tanah extends Fragment {
         call.enqueue(new Callback<List<Data>>() {
             @Override
             public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
-                utamanya.setVisibility(View.VISIBLE);
-                error.setVisibility(View.GONE);
                 updateTextTanah(response.body().get(0).getSensorsoil(),response.body().get(0).getSensorsoil2());
-                //updateTextTanah2(response.body().get(0).getSensorsoil2(),response.body().get(0).getKondisisoil2());
-
             }
 
             @Override
             public void onFailure(Call<List<Data>> call, Throwable t) {
-                error.setVisibility(View.VISIBLE);
-                utamanya.setVisibility(View.GONE);
             }
         });
 
@@ -260,4 +228,14 @@ public class Tanah extends Fragment {
 
     }
 
+    @OnClick(R.id.refresher)
+    public void refresh(){
+        loadJSON();
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onClick(View view) {
+
+    }
 }
