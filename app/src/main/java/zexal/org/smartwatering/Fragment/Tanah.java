@@ -205,17 +205,19 @@ public class Tanah extends Fragment implements View.OnClickListener {
 
                 ValueLineSeries series = new ValueLineSeries();
                 series.setColor(0xFF56B7F1);
+                ValueLineSeries series2=new ValueLineSeries();
+                series2.setColor(R.color.hijau);
 
                 for (int i = 0; i < datagraph.size(); i++) {
                     series.addPoint(new ValueLinePoint(datagraph.get(i).getLabel(), datagraph.get(i).getValue()));
                 }
                 for (int i = 0; i < datagraph2.size(); i++) {
-                    series.addPoint(new ValueLinePoint(datagraph2.get(i).getLabel(), datagraph2.get(i).getValue()));
+                    series2.addPoint(new ValueLinePoint(datagraph2.get(i).getLabel(), datagraph2.get(i).getValue()));
                 }
 
                 mCubicValueLineChart.addSeries(series);
                 mCubicValueLineChart.startAnimation();
-                mCubicValueLineChart2.addSeries(series);
+                mCubicValueLineChart2.addSeries(series2);
                 mCubicValueLineChart2.startAnimation();
             }
 
