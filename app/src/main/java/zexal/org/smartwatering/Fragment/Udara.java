@@ -20,6 +20,7 @@ import org.eazegraph.lib.models.ValueLinePoint;
 import org.eazegraph.lib.models.ValueLineSeries;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import butterknife.BindView;
@@ -61,7 +62,11 @@ public class Udara extends Fragment implements View.OnClickListener {
     TextView ku2;
     @BindView(R.id.pb)
     ProgressBar progressBar;
-
+    @BindView(R.id.udaramax)
+    TextView umax;
+    @BindView(R.id.udaramin)
+    TextView umin;
+    float nilaisebelum,temp;
 
 
     public Udara() {
@@ -111,7 +116,7 @@ public class Udara extends Fragment implements View.OnClickListener {
 
     private void updateTextHumi(String udara) {
         int x = (int) Float.parseFloat(udara);
-        if(x>=50) {
+        if(x<=50) {
             progress.setProgress(x);
             linear.setBackgroundResource(R.color.colorPrimaryDark);
             ku.setText("Ruangan Terasa Kering");
@@ -146,6 +151,9 @@ public class Udara extends Fragment implements View.OnClickListener {
         });
 
     }
+
+
+
     private void loadgraphJSON() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
@@ -158,11 +166,28 @@ public class Udara extends Fragment implements View.OnClickListener {
             public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
                 error.setVisibility(View.GONE);
                 utamanya.setVisibility(View.VISIBLE);
+                temp=Float.parseFloat(response.body().get(0).getHumi());
+
                 for (int i = 0; i < response.body().size(); i++) {
                     String[] split = response.body().get(i).getTime().split(" ");
                     datagraph.add(new DataGraph(split[1],Float.parseFloat(response.body().get(i).getHumi())));
-                    Log.d("cek", "loadDataGraph: "+datagraph.get(i).getLabel());
+                    float nilaisekarang = Float.parseFloat(response.body().get(i).getHumi());
+
+                    if(nilaisekarang>nilaisebelum)
+                    {
+                        nilaisebelum=nilaisekarang;
+                    }
+
+                    if (nilaisekarang<temp)
+                    {
+                        temp=nilaisekarang;
+                    }
+
+
                 }
+                Log.d(String.valueOf(temp),"lol");
+                umax.setText(String.valueOf("Kelembapan Udara Maksimal Hari Ini : " + nilaisebelum));
+                umin.setText(String.valueOf("Kelembapan Udara Minimal Hari Ini : " + temp));
 
                 ValueLineSeries series = new ValueLineSeries();
                 series.setColor(0xFF56B7F1);

@@ -69,6 +69,16 @@
         app:egLegendHeight="40dp"
         app:egShowStandardValue="true"/>
 
+    <TextView
+        android:id="@+id/udaramax"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/udaramin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
 </LinearLayout>
 </LinearLayout>
     </ScrollView>

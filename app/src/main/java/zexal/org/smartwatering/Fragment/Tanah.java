@@ -58,6 +58,17 @@ public class Tanah extends Fragment implements View.OnClickListener {
     ValueLineChart mCubicValueLineChart2;
     @BindView(R.id.pb)
     ProgressBar progressBar;
+    @BindView(R.id.tanahmax)
+    TextView tmax;
+    @BindView(R.id.tanahmin)
+    TextView tmin;
+    @BindView(R.id.tanahmax2)
+    TextView tmax2;
+    @BindView(R.id.tanahmin2)
+    TextView tmin2;
+    float nilaisebelum,data;
+    float nilaisebelum2,data2;
+    int h1,h2,h3,h4;
 
     ArrayList<DataGraph> datagraph = new ArrayList<>();
     ArrayList<DataGraph> datagraph2 = new ArrayList<>();
@@ -183,13 +194,16 @@ public class Tanah extends Fragment implements View.OnClickListener {
             public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
                 error.setVisibility(View.GONE);
                 utamanya.setVisibility(View.VISIBLE);
+                data=Float.parseFloat(response.body().get(0).getSensorsoil());
+                data2=Float.parseFloat(response.body().get(0).getSensorsoil2());
+
                 for (int i = 0; i < response.body().size(); i++) {
                     String[] split = response.body().get(i).getTime().split(" ");
                     int temp;
                     int temp2;
                     float hasil;
                     float fhasil;
-                    float patokan=700;
+                    float patokan=800;
                     temp= (int) Float.parseFloat(response.body().get(i).getSensorsoil());
                     temp2= (int) Float.parseFloat(response.body().get(i).getSensorsoil2());
 
@@ -199,9 +213,42 @@ public class Tanah extends Fragment implements View.OnClickListener {
                     int fhasil2=(int) fhasil;
 
                     datagraph.add(new DataGraph(split[1],hasil2));
+                    float nilaisekarang = Float.parseFloat(response.body().get(i).getSensorsoil());
+
+                    if(nilaisekarang>nilaisebelum)
+                    {
+                        nilaisebelum=nilaisekarang;
+                        h1=hasil2;
+                    }
+
+                    if (nilaisekarang<data)
+                    {
+                        data=nilaisekarang;
+                        h2=hasil2;
+                    }
                     datagraph2.add(new DataGraph(split[1],fhasil2));
+                    float nilaisekarang2 = Float.parseFloat(response.body().get(i).getSensorsoil2());
+
+                    if(nilaisekarang2>nilaisebelum2)
+                    {
+                        nilaisebelum2=nilaisekarang2;
+                        h3=fhasil2;
+                    }
+
+                    if (nilaisekarang2<data2)
+                    {
+                        data2=nilaisekarang2;
+                        h4=fhasil2;
+                    }
+
 
                 }
+
+                tmax.setText(String.valueOf("Kelembapan Tanah Sensor 1 Maksimal Hari Ini : " + h1));
+                tmin.setText(String.valueOf("Kelembapan Tanah Sensor 1 Minimal Hari Ini : " + h2));
+
+                tmax2.setText(String.valueOf("Kelembapan Tanah Sensor 2 Maksimal Hari Ini : " + h3));
+                tmin2.setText(String.valueOf("Kelembapan Tanah Sensor 2 Minimal Hari Ini : " + h4));
 
                 ValueLineSeries series = new ValueLineSeries();
                 series.setColor(0xFF56B7F1);

@@ -152,10 +152,10 @@ public class Manual extends AppCompatActivity {
 
     }
 
+
     private void updateTextSuhu(String flowrate, String currentliquid) {
         fl.setText("Debit : " + flowrate + " L/Min");
         cl.setText("Current Liquid Flowing : " + currentliquid + " mL/Sec");
 
     }
-
 }

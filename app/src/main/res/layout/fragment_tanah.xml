@@ -136,6 +136,28 @@
         app:egIndicatorLineColor="#FE6DA8"
         app:egLegendHeight="40dp"
         app:egShowStandardValue="true"/>
+
+        <TextView
+            android:id="@+id/tanahmax"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tanahmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:id="@+id/tanahmax2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tanahmin2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
 </LinearLayout>
 </LinearLayout>
 </ScrollView>

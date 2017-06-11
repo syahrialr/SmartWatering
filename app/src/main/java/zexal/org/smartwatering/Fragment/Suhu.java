@@ -56,6 +56,11 @@ public class Suhu extends Fragment implements View.OnClickListener {
     TextView ks2;
     @BindView(R.id.pb)
     ProgressBar progressBar;
+    @BindView(R.id.suhumax)
+    TextView smax;
+    @BindView(R.id.suhumin)
+    TextView smin;
+    float nilaisebelum,temp;
 
     ArrayList<DataGraph> datagraph = new ArrayList<>();
 
@@ -172,10 +177,26 @@ public class Suhu extends Fragment implements View.OnClickListener {
             public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
                 utamanya.setVisibility(View.VISIBLE);
                 error.setVisibility(View.GONE);
+                temp=Float.parseFloat(response.body().get(0).getTemp());
+
                 for (int i = 0; i < response.body().size(); i++) {
                     String[] split = response.body().get(i).getTime().split(" ");
                     datagraph.add(new DataGraph(split[1],Float.parseFloat(response.body().get(i).getTemp())));
+                    float nilaisekarang = Float.parseFloat(response.body().get(i).getTemp());
+
+                    if(nilaisekarang>nilaisebelum)
+                    {
+                        nilaisebelum=nilaisekarang;
+                    }
+
+                    if (nilaisekarang<temp)
+                    {
+                        temp=nilaisekarang;
+                    }
                 }
+
+                smax.setText(String.valueOf("Suhu Maksimal Hari Ini : " + nilaisebelum));
+                smin.setText(String.valueOf("Suhu Minimal Hari Ini : " + temp));
 
                 ValueLineSeries series = new ValueLineSeries();
                 series.setColor(0xFF56B7F1);

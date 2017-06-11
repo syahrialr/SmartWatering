@@ -156,7 +156,7 @@ public class Beranda extends Fragment implements View.OnClickListener{
     }
     private void updateTextHumi(String humi){
         int x = (int) Float.parseFloat(humi);
-        if(x>=50) {
+        if(x<=50) {
             progress3.setProgress(x);
             l3.setBackgroundResource(R.color.colorPrimaryDark);
             kudara.setText("Ruangan Terasa Kering");
