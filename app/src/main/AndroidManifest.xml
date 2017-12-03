@@ -26,6 +26,9 @@
         <activity android:name=".Manual"/>
 
         <activity android:name=".Setting"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="6ed44a527f6e638ff99d5e8cb1bfd656bd65e16c" />
     </application>
 
 </manifest>
