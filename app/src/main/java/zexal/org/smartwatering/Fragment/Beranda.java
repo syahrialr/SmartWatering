@@ -1,6 +1,7 @@
 package zexal.org.smartwatering.Fragment;
 
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -52,6 +54,9 @@ public class Beranda extends Fragment implements View.OnClickListener{
     @BindView(R.id.brd_ksuhu) TextView ksuhu;
     @BindView(R.id.brd_kudara) TextView kudara;
     @BindView(R.id.pb) ProgressBar progressBar;
+
+
+
 
     private SoilAdapter adapter;
     private HumiAdapter adapter2;
@@ -137,6 +142,27 @@ public class Beranda extends Fragment implements View.OnClickListener{
 
         loadJSON();
 
+        ObjectAnimator animation1 = ObjectAnimator.ofInt(progress1, "progress", 0, 88);
+        animation1.setDuration(55 * 25);//25 for a fast but not to fast animation
+        animation1.setInterpolator(new DecelerateInterpolator());
+        animation1.start();
+
+        ObjectAnimator animation2 = ObjectAnimator.ofInt(progress2, "progress", 0, 81);
+        animation2.setDuration(55 * 25);//25 for a fast but not to fast animation
+        animation2.setInterpolator(new DecelerateInterpolator());
+        animation2.start();
+
+        ObjectAnimator animation3 = ObjectAnimator.ofInt(progress3, "progress", 0, 61);
+        animation3.setDuration(55 * 25);//25 for a fast but not to fast animation
+        animation3.setInterpolator(new DecelerateInterpolator());
+        animation3.start();
+
+        ObjectAnimator animation4 = ObjectAnimator.ofInt(progress4, "progress", 0, 26);
+        animation4.setDuration(55 * 25);//25 for a fast but not to fast animation
+        animation4.setInterpolator(new DecelerateInterpolator());
+        animation4.start();
+
+
         return v;
     }
 
@@ -158,13 +184,13 @@ public class Beranda extends Fragment implements View.OnClickListener{
         int x = (int) Float.parseFloat(humi);
         if(x<=50) {
             progress3.setProgress(x);
-            l3.setBackgroundResource(R.color.colorPrimaryDark);
+            l3.setBackgroundResource(R.color.merah);
             kudara.setText("Ruangan Terasa Kering");
 
         }
         else {
             progress3.setProgress(x);
-            l3.setBackgroundResource(R.color.merah);
+            l3.setBackgroundResource(R.color.colorPrimaryDark);
             kudara.setText("Ruangan Lembab");
         }
     }
@@ -195,6 +221,7 @@ public class Beranda extends Fragment implements View.OnClickListener{
         }else if(Integer.parseInt(tanah)>=300 && Integer.parseInt(tanah)<=700&&Integer.parseInt(tanah2)>=300 && Integer.parseInt(tanah2)<=700)
         {
             progress1.setProgress(hasil2);
+
             ktanah1.setText("Tanah Lembab");
             progress2.setProgress(hasil4);
             ktanah2.setText("Tanah Lembab");

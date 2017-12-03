@@ -1,12 +1,14 @@
 package zexal.org.smartwatering.Fragment;
 
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -116,6 +118,16 @@ public class Tanah extends Fragment implements View.OnClickListener {
 
         t.start();
         loadgraphJSON();
+
+        ObjectAnimator animation = ObjectAnimator.ofInt(progress, "progress", 0, 88);
+        animation.setDuration(55 * 25);//25 for a fast but not to fast animation
+        animation.setInterpolator(new DecelerateInterpolator());
+        animation.start();
+
+        ObjectAnimator animation1 = ObjectAnimator.ofInt(progress2, "progress", 0, 81);
+        animation1.setDuration(55 * 25);//25 for a fast but not to fast animation
+        animation1.setInterpolator(new DecelerateInterpolator());
+        animation1.start();
 
         return v;
     }

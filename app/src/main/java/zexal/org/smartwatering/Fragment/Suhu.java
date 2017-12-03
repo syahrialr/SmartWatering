@@ -1,11 +1,13 @@
 package zexal.org.smartwatering.Fragment;
 
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -107,6 +109,12 @@ public class Suhu extends Fragment implements View.OnClickListener {
 
         t.start();
         loadgraphJSON();
+
+        ObjectAnimator animation = ObjectAnimator.ofInt(progress, "progress", 0, 26);
+        animation.setDuration(55 * 25);//25 for a fast but not to fast animation
+        animation.setInterpolator(new DecelerateInterpolator());
+        animation.start();
+
         return v;
     }
 

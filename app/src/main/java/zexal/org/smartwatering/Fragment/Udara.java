@@ -1,6 +1,7 @@
 package zexal.org.smartwatering.Fragment;
 
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -111,6 +113,12 @@ public class Udara extends Fragment implements View.OnClickListener {
 
         t.start();
         loadgraphJSON();
+
+        ObjectAnimator animation = ObjectAnimator.ofInt(progress, "progress", 0, 61);
+        animation.setDuration(55 * 25);//25 for a fast but not to fast animation
+        animation.setInterpolator(new DecelerateInterpolator());
+        animation.start();
+
         return v;
     }
 
@@ -118,7 +126,7 @@ public class Udara extends Fragment implements View.OnClickListener {
         int x = (int) Float.parseFloat(udara);
         if(x<=50) {
             progress.setProgress(x);
-            linear.setBackgroundResource(R.color.colorPrimaryDark);
+            linear.setBackgroundResource(R.color.merah);
             ku.setText("Ruangan Terasa Kering");
             ku2.setVisibility(View.VISIBLE);
         }
@@ -126,7 +134,7 @@ public class Udara extends Fragment implements View.OnClickListener {
                 ku.setText("Ruangan Lembab");
                 ku2.setVisibility(View.GONE);
                 progress.setProgress(x);
-                linear.setBackgroundResource(R.color.merah);
+                linear.setBackgroundResource(R.color.colorPrimaryDark);
             }
 
     }
